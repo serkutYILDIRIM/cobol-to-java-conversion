@@ -1,0 +1,8 @@
+*.md text eol=lf
+*.java text eol=lf
+*.xml text eol=lf
+*.properties text eol=lf
+**/mvnw text eol=lf
+*.cmd text eol=crlf
+# Preserve original source bytes, including fixed columns and line endings.
+COBOL_PROGRAM/** -text
