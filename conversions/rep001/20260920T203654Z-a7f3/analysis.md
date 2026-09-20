@@ -14,9 +14,9 @@ COBOL execution result.
 
 ## Data definitions
 
-| Source field / record | PIC, length, scale | Initialization / conditions | Proposed Java representation |
+| Source field / record | PIC, length, scale | Initialization / conditions | Java representation |
 | --- | --- | --- | --- |
-| `EMP-RECORD` | Group, 80 characters | Populated by each line-sequential read | Boundary parser input; exact width validation is unresolved in D-07 |
+| `EMP-RECORD` | Group, 80 characters | Populated by each line-sequential read | Strict UTF-8 boundary parser requiring exactly 80 Unicode characters (D-07) |
 | `EMP-ID` | `X(05)`, 5 | Input positions 1-5 | Five-character `String`, with boundary padding preserved |
 | `EMP-FIRST-NAME` | `X(15)`, 15 | Input positions 6-20 | Fixed-width `String`; two-space delimiter semantics retained |
 | `EMP-LAST-NAME` | `X(15)`, 15 | Input positions 21-35 | Fixed-width `String`; two-space delimiter semantics retained |
@@ -24,14 +24,14 @@ COBOL execution result.
 | `EMP-SALARY` | `9(06)V99`, 8 digits, scale 2 | Input positions 46-53; unsigned display numeric | `BigDecimal` created from eight unscaled digits with scale 2 |
 | Input filler | `X(27)`, 27 | Input positions 54-80 | Validated/preserved only at the input boundary; no business meaning |
 | `REPORT-RECORD` | `X(80)`, 80 | Receives each report line | Exactly 80-character report line before line separator |
-| File statuses | two `X(02)` fields | Set by COBOL file operations | Typed Java exceptions and HTTP problem responses; exact mapping is unresolved |
+| File statuses | two `X(02)` fields | Set by COBOL file operations | Typed Java exceptions with 400/422/500 HTTP problem responses (D-07) |
 | EOF switch | `X(01)`, initial `N`; level-88 value `Y` | Set after an at-end read | Local loop/end-of-stream state |
 | Page count | `9(03)`, initial 0 | Incremented per header | Per-request integer, source capacity 999 |
 | Line count/limit | `9(02)`, initial 99; limit 40 | Reset to 5 after headers | Per-request pagination state |
 | Employee count | `9(05)`, initial 0 | Incremented for each processed record | Per-request integer, source capacity 99,999 |
 | Total salary | `9(09)V99`, initial 0 | Sum of salaries | Per-request `BigDecimal`, source capacity 999,999,999.99 |
 | Current date | `X(08)` split as YYYY/MM/DD | Accepted once during initialization | `LocalDate` obtained from an injected `Clock` |
-| `DET-EMP-NAME` | `X(30)` | No explicit initialization between STRING operations | Fixed-width formatter; clearing behavior is unresolved in D-03 |
+| `DET-EMP-NAME` | `X(30)` | No explicit initialization between STRING operations | Fresh, space-filled 30-character value for each employee (D-03) |
 | Edited salary | `$ZZZ,ZZ9.99` | Receives employee salary | Locale-independent COBOL-style formatter, 11 characters |
 | Edited totals | `ZZ,ZZ9` and `$ZZZ,ZZZ,ZZ9.99` | Receive final count and salary | Locale-independent COBOL-style formatters |
 
@@ -97,9 +97,9 @@ HTTP requests.
   output record discards its final trailing space under ordinary group-move
   semantics; meaningful text is not lost.
 - Pagination starts with line count 99, which forces headers before the first
-  detail. Subsequent pages contain 36 detail records. Page advance syntax on lines
-  191-193 is unresolved in D-02, and whether the apparent 36-detail page size is
-  intended is unresolved in D-08.
+  detail. Subsequent pages contain the accepted 36 detail records (D-08). The
+  invalid page advance on lines 191-193 is represented by a standalone form-feed
+  line before each page after the first (D-02).
 - The employee count, page count, and salary total have finite COBOL capacities.
   The source contains no `ON SIZE ERROR`; actual compiler overflow behavior is
   unavailable and Java behavior requires D-07.
@@ -111,10 +111,10 @@ HTTP requests.
 
 ## English output translations
 
-These proposed translations preserve each source field's width by right-padding or
-truncating only padding. They require user confirmation in D-06.
+These accepted translations preserve each source field's width by right-padding or
+truncating only padding (D-06).
 
-| Source location | Proposed English replacement | Layout / compatibility effect | Decision reference |
+| Source location | Accepted English replacement | Layout / compatibility effect | Decision reference |
 | --- | --- | --- | --- |
 | Line 60, `TARIH:` | `DATE:` plus one space | Keeps the six-character field and date position | D-06 |
 | Line 68, `CALISAN MAAS RAPORU` | `EMPLOYEE SALARY REPORT` | Fits and pads the 24-character field | D-06 |
@@ -129,15 +129,16 @@ truncating only padding. They require user confirmation in D-06.
 ## Java API and data-access contracts
 
 One full-program use case exists: consume a complete employee data set and return
-the complete salary report. The transport is unresolved in D-04. The recommended
-contract is `POST /api/v1/salary-reports` with the raw fixed-width employee file as
-the request body and `text/plain` report bytes as the successful response. This
+the complete salary report. The accepted contract is `POST /api/v1/salary-reports`
+with the raw fixed-width employee file as the request body and `text/plain` UTF-8
+report bytes as the successful response (D-04 and D-05). This
 avoids exposing arbitrary server filesystem paths while retaining the COBOL file
 boundary. A structured JSON employee request would no longer test the fixed-width
 input parser and would be an intentional contract adaptation.
 
-On success, the operation returns HTTP 200 and a downloadable report. Validation
-and I/O problem status codes depend on D-07. A streaming/file DAO parses records
+On success, the operation returns HTTP 200 and a downloadable report. Malformed
+records return HTTP 400, numeric capacity overflow returns 422, and unexpected I/O
+failure returns 500 (D-07). A streaming/file DAO parses records
 and closes its input. Report formatting remains separate from aggregation and DAO
 access. No database DAO applies.
 
