@@ -1,6 +1,6 @@
 # Conversion session
 
-Status: awaiting behavior decisions
+Status: complete
 
 ## Identity
 
@@ -19,23 +19,23 @@ Status: awaiting behavior decisions
 - Required supporting behavior: employee record parsing, file lifecycle, per-run state, date acquisition, report formatting, pagination, totals, EOF handling, and error translation
 - Explicit exclusions: none within `REP001`; there is no transaction dispatch or external called program
 
-## Decisions and open questions
+## Decisions
 
 | ID | Source evidence / question | User answer or established requirement | Status / effect |
 | --- | --- | --- | --- |
 | D-01 | Full program, transaction types, or selected paragraphs? | Full conversion of `SalaryReport.CBL`. | Resolved; all paragraphs are selected. |
-| D-02 | Lines 191-193 contain `MOVE ADVANCING PAGE TO REPORT-RECORD`, which is not valid standard COBOL page-advance syntax. What bytes or lines should separate pages? | Awaiting user decision. | Open; blocks report pagination implementation. |
-| D-03 | Lines 145-149 do not initialize `DET-EMP-NAME`; COBOL may retain suffix characters when a shorter name follows a longer one. Preserve that behavior or clear the field for every record? | Awaiting user decision. | Open; changes detail output. |
-| D-04 | How should the HTTP application receive the employee data and return the report? | Awaiting user decision. | Open; blocks API and DAO contract. |
-| D-05 | What encoding should be used for the external fixed-width employee data and report? | Awaiting user decision. | Open; character widths and Turkish employee data may differ by encoding. |
-| D-06 | Workspace rules require English generated output. Are the proposed fixed-width English translations in `analysis.md` accepted? | Awaiting user decision. | Open; changes report text while retaining 80-character records. |
-| D-07 | What should happen for malformed/short records, nonnumeric salaries, read/write failures, and counter or total overflow? | Awaiting user decision. | Open; blocks failure semantics. |
-| D-08 | The counter resets to 5 and checks `> 40`, producing 36 detail rows per steady-state page. Is that intended, or should each page contain 40 details? | Awaiting user decision. | Open; changes pagination and report output. |
+| D-02 | Lines 191-193 contain invalid standard COBOL page-advance syntax. | Emit a standalone form-feed character before page 2+ headers. | Resolved; explicit text-report page separator. |
+| D-03 | Lines 145-149 do not initialize `DET-EMP-NAME`. | Clear the 30-character name field for every employee. | Resolved; intentional correction prevents prior-record suffix leakage. |
+| D-04 | How should the HTTP application receive employee data and return the report? | `POST /api/v1/salary-reports` accepts raw fixed-width data and returns `text/plain`. | Resolved; no server filesystem paths are exposed. |
+| D-05 | What encoding should external fixed-width input and report output use? | UTF-8, with widths measured in Unicode characters. | Resolved; strict malformed UTF-8 rejection. |
+| D-06 | Are the proposed fixed-width English translations accepted? | All recommendations accepted. | Resolved; use translations listed in `analysis.md`. |
+| D-07 | What should happen for malformed input, overflow, and I/O failures? | Require exactly 80 characters per record; use HTTP 400 for malformed records, 422 for numeric overflow, and 500 for unexpected I/O failures. | Resolved; implement typed problem responses. |
+| D-08 | Preserve the source-derived 36 detail rows per page or correct to 40? | Preserve 36. | Resolved; retain source counter behavior. |
 
 ## Progress
 
-- Analysis: in progress; source structure, state, dependencies, and semantic risks inventoried
-- Contract definition: pending user decisions D-02 through D-08
-- Implementation: not started, as required while behavior-changing questions remain open
-- Verification: source hash and UTF-8 validity checked; Java/Cobol application tests not run
-- Remaining limitations: no input fixture, expected report, compiler/dialect, or executable COBOL runtime is available
+- Analysis: complete
+- Contract definition: complete
+- Implementation: complete
+- Verification: passed with 16 Java tests; source hash and strict UTF-8 validity rechecked
+- Remaining limitations: no accepted input/output fixture, identified compiler/dialect, or executable COBOL runtime is available, so COBOL execution equivalence is unverified
