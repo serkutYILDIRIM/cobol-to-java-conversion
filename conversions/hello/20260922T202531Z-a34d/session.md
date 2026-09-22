@@ -1,6 +1,6 @@
 # Conversion session
 
-Status: awaiting scope
+Status: complete; Java-tested and source-reviewed
 
 ## Identity
 
@@ -13,24 +13,23 @@ Status: awaiting scope
 
 ## User-selected scope
 
-- Mode: pending
-- Selected identifiers: pending
-- User's scope statement: pending
-- Required supporting behavior: preliminary analysis identifies `MAIN-LOGIC` and `OGRENCI-MESAJ` as the only execution path and state
-- Explicit exclusions: pending scope selection
-
-Do not generate business code while the scope is unselected.
+- Mode: full
+- Selected identifiers: all (`MAIN-LOGIC` and `OGRENCI-MESAJ`)
+- User's scope statement: Convert the full program.
+- Required supporting behavior: the initialized `OGRENCI-MESAJ` field supplies the sole `DISPLAY` operation.
+- Explicit exclusions: none; source contains no other executable paths or transaction entries.
 
 ## Decisions and open questions
 
 | ID | Source evidence / question | User answer or established requirement | Status / effect |
 | --- | --- | --- | --- |
-| Q1 | The program has no transaction dispatch; the sole paragraph is `MAIN-LOGIC`. What scope should be converted? | Pending | No Java business code may be generated until resolved. |
+| Q1 | The program has no transaction dispatch; the sole paragraph is `MAIN-LOGIC`. What scope should be converted? | Full program | Resolved; the full program is the sole execution path. |
+| D1 | `DISPLAY OGRENCI-MESAJ` exposes a `PIC X(30)` field. | The Java HTTP operation returns the field as a JSON string. | Resolved; the response preserves the 30-character field value, including ten trailing spaces. |
 
 ## Progress
 
-- Analysis: in progress; preliminary source evidence recorded
-- Contract definition: pending
-- Implementation: not started
-- Verification: not run
-- Remaining limitations: scope, compiler/dialect, and encoding remain unconfirmed
+- Analysis: complete
+- Contract definition: complete
+- Implementation: complete
+- Verification: passed (`mvnw.cmd verify`)
+- Remaining limitations: compiler/dialect, encoding, and COBOL runtime output behavior remain unconfirmed
