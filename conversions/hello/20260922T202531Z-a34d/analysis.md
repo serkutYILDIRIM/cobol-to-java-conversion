@@ -19,7 +19,7 @@ The observed purpose is to write a fixed text message to the COBOL display outpu
 
 ## Selected control flow and dependency closure
 
-No scope is selected. The only available paragraph candidate is `MAIN-LOGIC` (lines 12-14). Its dependency closure comprises `OGRENCI-MESAJ` because line 13 displays that field. Execution terminates at `STOP RUN` (line 14). There are no `PERFORM`, `GO TO`, calls, loops, branches, or fall-through paths in the source.
+The selected scope is the full program. Execution enters `MAIN-LOGIC` (line 12), displays `OGRENCI-MESAJ` (line 13), then terminates at `STOP RUN` (line 14). The dependency closure contains `OGRENCI-MESAJ` because it supplies the displayed value. There are no `PERFORM`, `GO TO`, calls, loops, branches, or fall-through paths in the source.
 
 ## External dependencies and I/O
 
@@ -37,8 +37,15 @@ The source initializes a 30-character alphanumeric field and displays it. The li
 
 ## Java API and data-access contracts
 
-Pending scope selection. The source has no transaction types and no external data access.
+| Use case | Method and path | Request / validation | Response / status / errors | DAO contract |
+| --- | --- | --- | --- | --- |
+| Run the full `HELLO` program | `GET /api/hello` | No request body or parameters | `200 OK` with `{ "message": "HELLO FROM IBM COBOL          " }`; the string contains 30 characters and preserves the ten padding spaces implied by `PIC X(30)`. | Not applicable: the source has no external data access. |
+
+The service is stateless. The source's `STOP RUN` is represented by completing the HTTP operation successfully; it must not terminate the server JVM.
 
 ## Verification design
 
-Pending scope and Java contract. A source-derived candidate case is that the selected execution path emits the initialized `OGRENCI-MESAJ` value and terminates; this is not an observed COBOL runtime result.
+- Verify the service returns exactly 30 characters: the 20-character literal followed by ten spaces. Evidence: source line 9 and `PIC X(30)`.
+- Verify `GET /api/hello` returns `200 OK` and preserves the fixed-width value in its JSON response. Evidence: source lines 9 and 13, plus decision D1.
+- Verify repeated requests return the same value. Evidence: no mutable state appears in the source.
+- These are source-derived expectations, not observed COBOL runtime outputs.
