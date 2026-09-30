@@ -19,7 +19,6 @@ public final class ClientSimulationService {
             SyncpointMode.SQL_SYNC_TWOPHASE);
 
     private final ClientReportFormatter formatter;
-
     public ClientSimulationService(ClientReportFormatter formatter) {
         this.formatter = formatter;
     }
