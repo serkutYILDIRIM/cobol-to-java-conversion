@@ -20,7 +20,6 @@ public final class ApiExceptionHandler {
         detail.setDetail("Provide all four client settings using the documented symbolic values.");
         return detail;
     }
-
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ProblemDetail unreadableRequest(HttpMessageNotReadableException exception) {
         ProblemDetail detail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
