@@ -24,5 +24,25 @@ public final class ClientSimulationService {
         this.formatter = formatter;
     }
 
+    public SimulationResult simulate(ClientSettings initial) {
+        List<String> output = new ArrayList<>();
+        output.add("Sample COBOL Program : CLIENT.CBL");
+        output.add("QUERY CLIENT");
+        output.addAll(formatter.format(initial));
 
+        ClientSettings saved = initial;
+        output.add("SET CLIENT");
+        output.add("connect type     = SQL-CONNECT-2");
+        output.add("rules            = SQL-RULES-STD");
+        output.add("disconnect       = SQL-DISCONNECT-COND");
+        output.add("syncpoint        = SQL-SYNC-TWOPHASE");
+
+        ClientSettings changed = REQUESTED;
+        output.add("QUERY CLIENT");
+        output.addAll(formatter.format(changed));
+
+        ClientSettings restored = saved;
+        output.add("SET CLIENT");
+        return new SimulationResult(initial, changed, restored, List.copyOf(output));
+    }
 }
