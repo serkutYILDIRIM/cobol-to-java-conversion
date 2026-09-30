@@ -21,6 +21,8 @@ public final class ClientSimulationController {
 
     @PostMapping
     public SimulationResponse simulate(@Valid @RequestBody ClientSettingsRequest request) {
-        return SimulationResponse.from(service.simulate(request.toModel()));
     }
+
+
+
 }
