@@ -13,5 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/client-settings/simulations")
 public final class ClientSimulationController {
 
+    private final ClientSimulationService service;
+
 
 }
