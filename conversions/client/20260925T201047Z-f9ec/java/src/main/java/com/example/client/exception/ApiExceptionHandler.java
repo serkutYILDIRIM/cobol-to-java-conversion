@@ -18,6 +18,7 @@ public final class ApiExceptionHandler {
         ProblemDetail detail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
         detail.setTitle("Invalid client settings");
         detail.setDetail("Provide all four client settings using the documented symbolic values.");
+      
         return detail;
     }
 
