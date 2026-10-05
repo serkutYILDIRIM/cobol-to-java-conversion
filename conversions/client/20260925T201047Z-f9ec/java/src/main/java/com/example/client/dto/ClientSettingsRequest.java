@@ -16,5 +16,6 @@ public record ClientSettingsRequest(
     public ClientSettings toModel() {
             
         return new ClientSettings(connectionType, rules, disconnect, syncpoint);
+            
     }
 }
