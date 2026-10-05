@@ -23,6 +23,7 @@ public final class ClientReportFormatter {
             lines.add(" Enforces the rules for Remote Unit of Work (RUOW) from previous releases.");
             lines.add("TYPE = SQL-1");
         }
+        
         if (settings.connectionType() == ConnectionType.SQL_CONNECT_2) {
             lines.add(" Supports the multiple database pre unit of work semantics DUOW.");
             lines.add("TYPE = SQL-2");
