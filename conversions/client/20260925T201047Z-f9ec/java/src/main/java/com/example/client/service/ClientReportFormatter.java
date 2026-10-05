@@ -38,6 +38,7 @@ public final class ClientReportFormatter {
             lines.add(" Enables the SQL CONNECT statement to switch the current connection to an established (dormant) connection.");
             lines.add("TYPE = SQL-DB2");
         }
+        
         if (settings.rules() == SqlRules.SQL_RULES_STD) {
             lines.add("Permits the establishement of a new connection only through SQL CONNECT statement.");
         }
