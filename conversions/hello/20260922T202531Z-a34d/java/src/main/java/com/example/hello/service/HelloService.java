@@ -9,5 +9,6 @@ public class HelloService {
     public String getMessage() {
         
         return COBOL_MESSAGE;
+        
     }
 }
