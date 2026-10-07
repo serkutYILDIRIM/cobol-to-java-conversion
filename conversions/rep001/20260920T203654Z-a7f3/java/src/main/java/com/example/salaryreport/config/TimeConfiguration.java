@@ -12,6 +12,5 @@ public class TimeConfiguration {
     @Bean
     Clock reportClock(@Value("${salary-report.zone-id}") String zoneId) {
         return Clock.system(ZoneId.of(zoneId));
-    
     }
 }
