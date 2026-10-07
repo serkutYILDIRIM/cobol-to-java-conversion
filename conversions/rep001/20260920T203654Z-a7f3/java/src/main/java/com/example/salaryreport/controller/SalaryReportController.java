@@ -26,6 +26,7 @@ public class SalaryReportController {
 
     @PostMapping(consumes = MediaType.TEXT_PLAIN_VALUE, produces = "text/plain;charset=UTF-8")
     public ResponseEntity<byte[]> generate(@RequestBody(required = false) byte[] input) {
+        
         byte[] employeeData = input == null ? new byte[0] : input;
         byte[] report = service.generate(new ByteArrayInputStream(employeeData)).getBytes(StandardCharsets.UTF_8);
         
