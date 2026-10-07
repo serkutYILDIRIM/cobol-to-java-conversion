@@ -31,7 +31,6 @@ public class SalaryReportController {
         
         byte[] employeeData = input == null ? new byte[0] : input;
         byte[] report = service.generate(new ByteArrayInputStream(employeeData)).getBytes(StandardCharsets.UTF_8);
-        
         return ResponseEntity.ok()
                 .contentType(UTF8_TEXT)
                 .header(
