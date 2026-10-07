@@ -21,6 +21,7 @@ public class SalaryReportController {
     private final SalaryReportService service;
 
     public SalaryReportController(SalaryReportService service) {
+        
         this.service = service;
     }
 
