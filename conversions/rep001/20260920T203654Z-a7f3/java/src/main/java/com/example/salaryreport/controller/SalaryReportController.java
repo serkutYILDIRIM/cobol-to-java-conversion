@@ -23,6 +23,7 @@ public class SalaryReportController {
     public SalaryReportController(SalaryReportService service) {
         
         this.service = service;
+        
     }
 
     @PostMapping(consumes = MediaType.TEXT_PLAIN_VALUE, produces = "text/plain;charset=UTF-8")
