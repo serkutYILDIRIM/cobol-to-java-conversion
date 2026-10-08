@@ -23,6 +23,7 @@ class Utf8FixedWidthEmployeeRecordReaderTest {
         String first = TestRecords.employee("00001", "ALICE", "SMITH", "FINANCE", "00123456");
         String second = TestRecords.employee("00002", "BOB", "JONES", "SALES", "00001000");
         String third = TestRecords.employee("00003", "CARA", "BROWN", "HR", "00002000");
+        
         byte[] input = (first + "\r\n" + second + "\n" + third).getBytes(StandardCharsets.UTF_8);
 
         var employees = reader.read(new ByteArrayInputStream(input));
