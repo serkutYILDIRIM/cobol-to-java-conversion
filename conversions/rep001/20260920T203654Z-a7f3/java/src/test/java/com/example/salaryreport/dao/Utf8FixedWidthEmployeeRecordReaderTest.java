@@ -50,7 +50,6 @@ class Utf8FixedWidthEmployeeRecordReaderTest {
                 .isInstanceOf(InvalidEmployeeDataException.class)
                 .hasMessage("Record 1 contains an unsupported carriage return.");
     }
-
     @Test
     void translatesReadFailures() {
         InputStream failingInput = new InputStream() {
