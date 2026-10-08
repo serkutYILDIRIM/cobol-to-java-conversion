@@ -36,7 +36,6 @@ class Utf8FixedWidthEmployeeRecordReaderTest {
     void acceptsEmptyInput() {
         assertThat(reader.read(new ByteArrayInputStream(new byte[0]))).isEmpty();
     }
-
     @Test
     void rejectsMalformedUtf8() {
         assertThatThrownBy(() -> reader.read(new ByteArrayInputStream(new byte[] {(byte) 0xc3, 0x28})))
