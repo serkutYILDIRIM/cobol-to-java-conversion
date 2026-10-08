@@ -41,7 +41,6 @@ class Utf8FixedWidthEmployeeRecordReaderTest {
                 .isInstanceOf(InvalidEmployeeDataException.class)
                 .hasMessage("Employee data must be valid UTF-8.");
     }
-
     @Test
     void rejectsBareCarriageReturnAsALineEnding() {
         String record = TestRecords.employee("00001", "A", "B", "D", "00000100") + "\r";
