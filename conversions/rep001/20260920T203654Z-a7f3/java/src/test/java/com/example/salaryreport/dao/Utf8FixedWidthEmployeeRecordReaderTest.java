@@ -57,7 +57,6 @@ class Utf8FixedWidthEmployeeRecordReaderTest {
                 throw new IOException("test failure");
             }
         };
-
         assertThatThrownBy(() -> reader.read(failingInput))
                 .isInstanceOf(ReportIoException.class)
                 .hasMessage("Failed to read employee data.");
