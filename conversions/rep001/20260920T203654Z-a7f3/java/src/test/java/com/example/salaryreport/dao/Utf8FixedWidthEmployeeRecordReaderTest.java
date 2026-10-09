@@ -17,6 +17,7 @@ class Utf8FixedWidthEmployeeRecordReaderTest {
 
     private final Utf8FixedWidthEmployeeRecordReader reader =
             new Utf8FixedWidthEmployeeRecordReader(new EmployeeRecordMapper());
+    
     @Test
     void readsLfCrLfAndFinalLineWithoutTerminator() {
         String first = TestRecords.employee("00001", "ALICE", "SMITH", "FINANCE", "00123456");
