@@ -31,7 +31,6 @@ class Utf8FixedWidthEmployeeRecordReaderTest {
         assertThat(employees).extracting(employee -> employee.id().trim())
                 .containsExactly("00001", "00002", "00003");
     }
-    
     @Test
     void acceptsEmptyInput() {
         assertThat(reader.read(new ByteArrayInputStream(new byte[0]))).isEmpty();
