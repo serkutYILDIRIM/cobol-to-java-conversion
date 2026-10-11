@@ -35,6 +35,7 @@ public class Utf8FixedWidthEmployeeRecordReader implements EmployeeRecordReader 
         } catch (IOException exception) {
             throw new ReportIoException("Failed to read employee data.", exception);
         }
+        
     }
 
     private String decodeStrictUtf8(byte[] input) {
