@@ -49,6 +49,7 @@ public class Utf8FixedWidthEmployeeRecordReader implements EmployeeRecordReader 
         } catch (CharacterCodingException exception) {
             throw new InvalidEmployeeDataException("Employee data must be valid UTF-8.", exception);
         }
+        
     }
 
     private List<Employee> mapRecords(String content) {
