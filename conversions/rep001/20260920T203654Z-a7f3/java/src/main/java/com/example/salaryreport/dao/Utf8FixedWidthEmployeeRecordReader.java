@@ -39,6 +39,7 @@ public class Utf8FixedWidthEmployeeRecordReader implements EmployeeRecordReader 
     }
 
     private String decodeStrictUtf8(byte[] input) {
+        
         try {
             return StandardCharsets.UTF_8.newDecoder()
                     .onMalformedInput(CodingErrorAction.REPORT)
