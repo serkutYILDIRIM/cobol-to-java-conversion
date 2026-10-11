@@ -27,6 +27,7 @@ public class Utf8FixedWidthEmployeeRecordReader implements EmployeeRecordReader 
 
     @Override
     public List<Employee> read(InputStream input) {
+        
         try (input) {
             return mapRecords(decodeStrictUtf8(input.readAllBytes()));
         } catch (InvalidEmployeeDataException exception) {
