@@ -20,6 +20,7 @@ public class Utf8FixedWidthEmployeeRecordReader implements EmployeeRecordReader 
     private final EmployeeRecordMapper mapper;
 
     public Utf8FixedWidthEmployeeRecordReader(EmployeeRecordMapper mapper) {
+        
         this.mapper = mapper;
     }
 
