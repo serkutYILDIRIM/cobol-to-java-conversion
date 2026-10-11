@@ -22,6 +22,7 @@ public class Utf8FixedWidthEmployeeRecordReader implements EmployeeRecordReader 
     public Utf8FixedWidthEmployeeRecordReader(EmployeeRecordMapper mapper) {
         
         this.mapper = mapper;
+        
     }
 
     @Override
