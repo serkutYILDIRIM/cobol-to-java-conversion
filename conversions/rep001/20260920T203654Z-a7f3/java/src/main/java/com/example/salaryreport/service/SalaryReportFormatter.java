@@ -16,6 +16,7 @@ public class SalaryReportFormatter {
 
     public String heading(LocalDate date, int pageNumber) {
         return reportRecord(
+            
                 fixed("DATE:", 6)
                         + REPORT_DATE.format(date)
                         + " ".repeat(15)
