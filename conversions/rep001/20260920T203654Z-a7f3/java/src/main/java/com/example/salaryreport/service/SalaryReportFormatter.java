@@ -34,6 +34,7 @@ public class SalaryReportFormatter {
     }
 
     public String columnHeading() {
+        
         return reportRecord(
                 fixed("ID", 7)
                         + fixed("FULL NAME", 32)
