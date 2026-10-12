@@ -30,6 +30,7 @@ public class SalaryReportFormatter {
     public String equalsSeparator() {
         
         return "=".repeat(80);
+        
     }
 
     public String columnHeading() {
