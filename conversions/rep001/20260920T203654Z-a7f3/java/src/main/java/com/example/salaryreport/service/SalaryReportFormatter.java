@@ -24,6 +24,7 @@ public class SalaryReportFormatter {
                         + " ".repeat(15)
                         + fixed("PAGE:", 6)
                         + leftPad(Integer.toString(pageNumber), 4));
+        
     }
 
     public String equalsSeparator() {
