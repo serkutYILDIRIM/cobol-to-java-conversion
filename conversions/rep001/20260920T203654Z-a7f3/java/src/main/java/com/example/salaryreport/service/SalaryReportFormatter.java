@@ -40,6 +40,7 @@ public class SalaryReportFormatter {
                         + fixed("FULL NAME", 32)
                         + fixed("DEPARTMENT", 12)
                         + fixed("GROSS SALARY", 15));
+        
     }
 
     public String dashSeparator() {
