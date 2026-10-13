@@ -14,7 +14,6 @@ public record ClientSettingsDto(
 
     public static ClientSettingsDto from(ClientSettings settings) {
         return new ClientSettingsDto(
-            
                 settings.connectionType(),
                 settings.rules(),
                 settings.disconnect(),
