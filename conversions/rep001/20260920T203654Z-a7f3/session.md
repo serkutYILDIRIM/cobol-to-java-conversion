@@ -1,6 +1,6 @@
 # Conversion session
 
-Status: complet e
+Status: complete
 
 ## Identity
 
