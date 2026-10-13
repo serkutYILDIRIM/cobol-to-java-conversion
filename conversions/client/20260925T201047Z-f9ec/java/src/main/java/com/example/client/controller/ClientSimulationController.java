@@ -18,6 +18,7 @@ public final class ClientSimulationController {
     public ClientSimulationController(ClientSimulationService service) {
         
         this.service = service;
+        
     }
 
     @PostMapping
