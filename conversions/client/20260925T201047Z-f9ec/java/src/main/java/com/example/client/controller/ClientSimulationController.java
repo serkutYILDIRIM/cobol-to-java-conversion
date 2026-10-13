@@ -16,6 +16,7 @@ public final class ClientSimulationController {
     private final ClientSimulationService service;
 
     public ClientSimulationController(ClientSimulationService service) {
+        
         this.service = service;
     }
 
