@@ -1,16 +1,16 @@
-# COBOL'dan Java'ya eşleme
+# COBOL-to-Java mapping
 
-| COBOL konumu / sorumluluğu | Java sınıfı / metodu / sözleşmesi | Seçilen veya destekleyici | Kanıt / karar |
+| COBOL location / responsibility | Java class / method / contract | Selected or supporting | Evidence / decision |
 | --- | --- | --- | --- |
-| 12-14. satırlar, `MAIN-LOGIC` | `HelloController#getHello()` ve `HelloService#getMessage()` | Seçilen | Programın tamamını kapsayan kapsam; kaynak yürütme sırası |
-| 9. satır, `OGRENCI-MESAJ PIC X(30)` | `HelloService` sabit genişlikli metin (string) ve `HelloResponse.message` | Destekleyici | Kaynak alan tanımı; D1 |
-| 13. satır, `DISPLAY OGRENCI-MESAJ` | `GET /api/hello` JSON yanıtı | Seçilen | D1 |
-| 14. satır, `STOP RUN` | Normal ve başarılı HTTP yanıtı tamamlanması | Seçilen | Java mimarisi kılavuzu |
+| Lines 12-14, `MAIN-LOGIC` | `HelloController#getHello()` and `HelloService#getMessage()` | Selected | Full-program scope; source execution sequence |
+| Line 9, `OGRENCI-MESAJ PIC X(30)` | `HelloService` fixed-width string and `HelloResponse.message` | Supporting | Source field definition; D1 |
+| Line 13, `DISPLAY OGRENCI-MESAJ` | `GET /api/hello` JSON response | Selected | D1 |
+| Line 14, `STOP RUN` | Normal successful HTTP response completion | Selected | Java architecture guidance |
 
-## Hariç tutulan işlevsellik
+## Excluded functionality
 
-Yok. Programın tamamı seçilmiştir ve başka yordamlar veya işlem giriş noktaları içermemektedir.
+None. The full program is selected and contains no other procedures or transaction entry points.
 
-## Bilinçli farklılıklar
+## Intentional differences
 
-`DISPLAY` çıktısı, bir JSON HTTP yanıtına uyarlanmıştır. Dolgu boşlukları da dahil olmak üzere 30 karakterlik alan değeri korunmuştur. `STOP RUN` komutu JVM'i sonlandırmaz; bunun yerine HTTP işlemini tamamlar.
+`DISPLAY` output is adapted to a JSON HTTP response. The 30-character field value, including padding spaces, is retained. `STOP RUN` does not terminate the JVM; it completes the HTTP operation.
