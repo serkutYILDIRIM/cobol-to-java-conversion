@@ -3,7 +3,18 @@
 
 ## Kanıtlar ve amaç
 
-Programın tamamı kapsama dahil edilmiştir. Aşağıdaki tüm satır referansları `COBOL_PROGRAM/CLIENT.CBL` dosyasına yöneliktir. 20-28. satırlar, istemci bağlantı ayarlarını sorgulamaya ve yapılandırmaya yönelik bir IBM DB2 örneğini tanımlar. 43-66. satırlar; sabit formatlı sütun yapısına sahip Identification (Tanımlama), Data (Veri) ve Procedure (Yordam) bölümlerini içerir. Kaynak kod yalnızca ASCII baytları ve CRLF satır sonu karakterleri içerir; orijinal kod sayfası, derleyici seçenekleri ve DB2 çalışma zamanı sürümü bilinmemektedir. Bildirilmiş bir girdi dosyası veya terminalden okuma işlemi yoktur. Program DB2 API'lerini çağırır ve konsola `DISPLAY` çıktısı yazar (`:69-251`).
+Programın tamamı kapsama dahil edilmiştir. Aşağıdaki tüm satır referansları `COBOL_PROGRAM/CLIENT.CBL` dosyasına yöneliktir. 20-28. satırlar, istemci bağlantı ayarlarını sorgulamaya ve yapılandırmaya yönelik bir IBM DB2 örneğini tanımlar. 43-66. satırlar; sabit formatlı sütun yapısına sahip Identification (Tanımlama), Data (Ver
+
+
+
+
+
+
+
+
+
+
+i) ve Procedure (Yordam) bölümlerini içerir. Kaynak kod yalnızca ASCII baytları ve CRLF satır sonu karakterleri içerir; orijinal kod sayfası, derleyici seçenekleri ve DB2 çalışma zamanı sürümü bilinmemektedir. Bildirilmiş bir girdi dosyası veya terminalden okuma işlemi yoktur. Program DB2 API'lerini çağırır ve konsola `DISPLAY` çıktısı yazar (`:69-251`).
 
 
 
