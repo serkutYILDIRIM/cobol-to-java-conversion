@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
 
     private final HelloService helloService;
-
     public HelloController(HelloService helloService) {      
-        this.helloService = helloService ;
+        this.helloService = helloService;
     }
 
     @GetMapping
