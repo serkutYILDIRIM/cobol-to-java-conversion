@@ -15,7 +15,10 @@ Durum: tamamlandı
 
 - Mod: tam
 - Seçilen tanımlayıcılar: `REP001` içindeki tüm paragraflar
-- Kullanıcının kapsam beyanı: `COBOL_PROGRAM/SalaryReport.CBL` içindeki tüm COBOL kodunu tam program dönüştürmesi olarak dönüştür
+- Kullanıcının kapsam beyanı: `COBOL__
+-
+-
+- PROGRAM/SalaryReport.CBL` içindeki tüm COBOL kodunu tam program dönüştürmesi olarak dönüştür
 - Gereken destekleyici davranışlar: çalışan kaydı ayrıştırma, dosya yaşam döngüsü, çalıştırma bazlı durum yönetimi, tarih alma, rapor biçimlendirme, sayfalama, toplamlar, EOF (dosya sonu) işleme ve hata çevirisi
 - Açıkça hariç tutulanlar: `REP001` içinde yok; işlem yönlendirme veya çağrılan harici program bulunmuyor
 
