@@ -15,7 +15,7 @@ class EmployeeRecordMapperTest {
     @Test
     void mapsFixedPositionsAndImpliedDecimalSalary() {
         var employee = mapper.map(
-                TestRecords.employee("A1234", "USER😊", "ÖZTÜRK", "AR-GE", "00123456"), 1);
+                TestRecords.employee("A1234", "USER😊", "SECONDNAME", "AR-GE", "00123456"), 1);
 
         assertThat(employee.id()).isEqualTo("A1234");
         assertThat(employee.firstName()).startsWith("ÇAĞRI😊");
