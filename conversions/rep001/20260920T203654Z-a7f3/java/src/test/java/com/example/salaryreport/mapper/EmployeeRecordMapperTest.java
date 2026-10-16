@@ -24,5 +24,15 @@ class EmployeeRecordMapperTest {
         assertThat(employee.salary()).isEqualByComparingTo(new BigDecimal("1234.56"));
     }
 
+    @Test
+    void rejectsWrongWidthAndNonnumericSalary() {
+        assertThatThrownBy(() -> mapper.map(" ".repeat(79), 4))
+                .isInstanceOf(InvalidEmployeeDataException.class)
+                .hasMessage("Record 4 must contain exactly 80 characters; found 79.");
 
+        String invalidSalary = TestRecords.employee("1", "A", "B", "C", "0001X300");
+        assertThatThrownBy(() -> mapper.map(invalidSalary, 2))
+                .isInstanceOf(InvalidEmployeeDataException.class)
+                .hasMessage("Record 2 salary must contain exactly eight digits.");
+    }
 }
