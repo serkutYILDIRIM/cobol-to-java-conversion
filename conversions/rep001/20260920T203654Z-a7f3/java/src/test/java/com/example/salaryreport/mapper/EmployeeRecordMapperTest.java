@@ -18,7 +18,7 @@ class EmployeeRecordMapperTest {
                 TestRecords.employee("A1234", "USER😊", "SECONDNAME", "AR-GE", "00123456"), 1);
 
         assertThat(employee.id()).isEqualTo("A1234");
-        assertThat(employee.firstName()).startsWith("ÇAĞRI😊");
+        assertThat(employee.firstName()).startsWith("USER😊");
         assertThat(employee.lastName()).startsWith("ÖZTÜRK");
         assertThat(employee.department()).startsWith("AR-GE");
         assertThat(employee.salary()).isEqualByComparingTo(new BigDecimal("1234.56"));
