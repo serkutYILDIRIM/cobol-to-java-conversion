@@ -6,6 +6,18 @@
 
 Kaynak dosya, BOM (Byte Order Mark) içermeyen, geçerli UTF-8 kodlamasına sahiptir ve satır sonlarında CRLF karakterlerini kullanır. Hangi COBOL derleyicisinin veya lehçesinin kullanıldığı belirtilmemiştir. Mevcut `PATH` üzerinde herhangi bir COBOL derleyicisi tespit edilemediğinden, burada açıklanan davranışların hiçbiri fiili bir COBOL yürütme sonucuna dayanmamaktadır.
 
+## Dış bağımlılıklar ve G/Ç (I/O)| `X(27)`, 27 | 54-80 arası giriş konumları | Yalnızca giriş sınırında doğrulanır/korunur; iş mantığı açısından bir anlamı yoktur |
+
+| Satır sayısı/sınırı | `9(02)`, başlangıç ​​değeri 99; sınır 40 | Başlıklardan sonra 5 değerine sıfırlanır | İstek başına sayfalama durumu |
+| Çalışan sayısı | `9(05)`, başlangıç ​​değeri 0 | İşlenen her kayıt için artırılır | İstek başına tam sayı; kaynak kapasitesi 99.999 |
+| Toplam maaş | `9(09)V99`, başlangıç ​​değeri 0 | Maaşların toplamı | İstek başına `BigDecimal`; kaynak kapasitesi 999.999.999,99 |
+| Mevcut tarih | YYYY/MM/DD formatında `X(08)` | Başlatma sırasında bir kez alınır | Enjekte edilen bir `Clock` nesnesinden elde edilen `LocalDate` |
+| `DET-EMP-NAME` | `X(30)` | `STRING` işlemleri arasında ayrıca başlatılmaz | Her çalışan için boşluklarla doldurulmuş, yeni 30 karakterlik değer (D-03) |
+| Biçimlendirilmiş maaş | `$ZZZ,ZZ9.99` | Çalışan maaşını alır | Yerel ayardan bağımsız, COBOL tarzı biçimlendirici (11 karakter) |
+| Düzenlenmiş toplamlar | `ZZ,ZZ9` ve `$ZZZ,ZZZ,ZZ9.99` | Nihai sayı ve maaş değerlerini alır | Yerel ayardan bağımsız, COBOL tarzı biçimlendiriciler |
+
+`COMP`, `COMP-3`, `REDEFINES` veya `OCCURS` alanları bulunmamaktadır. Tek `level-88` koşulu `END-OF-FILE` ifadesidir (42-43. satırlar).
+
 ## Veri tanımları
 
 | Kaynak alan / kayıt | PIC, uzunluk, ölçek | Başlatma / koşullar | Java karşılığı |
@@ -32,17 +44,7 @@ Programın tamamının yürütülmesi `0000-MAIN-LOGIC` ile başlar: başlatma i
 
 Tüm çalışma durumu (working state), her bir işlem için ayrı ayrı oluşturulmalıdır. Değiştirilebilir rapor arabellekleri, sayaçlar, tarih bilgileri, toplamlar veya dosya sonu (EOF) bayrakları; tekrarlanan ya da eş zamanlı HTTP istekleri arasında paylaşılamaz.
 
-## Dış bağımlılıklar ve G/Ç (I/O)| `X(27)`, 27 | 54-80 arası giriş konumları | Yalnızca giriş sınırında doğrulanır/korunur; iş mantığı açısından bir anlamı yoktur |
 
-| Satır sayısı/sınırı | `9(02)`, başlangıç ​​değeri 99; sınır 40 | Başlıklardan sonra 5 değerine sıfırlanır | İstek başına sayfalama durumu |
-| Çalışan sayısı | `9(05)`, başlangıç ​​değeri 0 | İşlenen her kayıt için artırılır | İstek başına tam sayı; kaynak kapasitesi 99.999 |
-| Toplam maaş | `9(09)V99`, başlangıç ​​değeri 0 | Maaşların toplamı | İstek başına `BigDecimal`; kaynak kapasitesi 999.999.999,99 |
-| Mevcut tarih | YYYY/MM/DD formatında `X(08)` | Başlatma sırasında bir kez alınır | Enjekte edilen bir `Clock` nesnesinden elde edilen `LocalDate` |
-| `DET-EMP-NAME` | `X(30)` | `STRING` işlemleri arasında ayrıca başlatılmaz | Her çalışan için boşluklarla doldurulmuş, yeni 30 karakterlik değer (D-03) |
-| Biçimlendirilmiş maaş | `$ZZZ,ZZ9.99` | Çalışan maaşını alır | Yerel ayardan bağımsız, COBOL tarzı biçimlendirici (11 karakter) |
-| Düzenlenmiş toplamlar | `ZZ,ZZ9` ve `$ZZZ,ZZZ,ZZ9.99` | Nihai sayı ve maaş değerlerini alır | Yerel ayardan bağımsız, COBOL tarzı biçimlendiriciler |
-
-`COMP`, `COMP-3`, `REDEFINES` veya `OCCURS` alanları bulunmamaktadır. Tek `level-88` koşulu `END-OF-FILE` ifadesidir (42-43. satırlar).
 | `EMP-FIRST-NAME` | `X(15)`, 15 | Giriş verisinde 6-20. konumlar | Sabit genişlikli `String`; iki boşluklu ayırıcı semantiği korunur |
 
 
