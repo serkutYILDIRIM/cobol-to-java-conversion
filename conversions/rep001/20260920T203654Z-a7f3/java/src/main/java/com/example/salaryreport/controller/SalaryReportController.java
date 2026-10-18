@@ -33,7 +33,6 @@ public class SalaryReportController {
         byte[] report = service.generate(new ByteArrayInputStream(employeeData)).getBytes(StandardCharsets.UTF_8);
         
         return ResponseEntity.ok()
-            
                 .contentType(UTF8_TEXT)
                 .header(
                         HttpHeaders.CONTENT_DISPOSITION,
