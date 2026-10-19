@@ -6,17 +6,6 @@ Tam program kapsamı seçildi. Aşağıdaki tüm satır referansları 'COBOL_PRO
 
 ## Veri tanımları
 
-| Kaynak alanı / kaydı | PIC, uzunluk, ölçek, kodlama | Başlatma / koşullar | Önerilen Java gösterimi |
-| --- | --- | --- | --- |
-| 'rc' (':55') | 'PIC S9(9) COMP-5' | API dönüş hedefi, burada hiçbir zaman denetlenmedi | Yerel imzalı tamsayı; tam ABI, DB2 tanımlarına bağlıdır. |
-| 'hata' (':56') | 'RESİM X(80)' | "checkerr" öncesindeki etiketleri sorgulamak/ayarlamak için ayarla (`:88-89,120-121,133-134,153-154`) | Hata-işlem etiketi; COBOL pedleri 80 genişliğe taşıyın. |
-| 'liste numarası' (`:59`) | 'PIC S9(4) COMP-5 DEĞER 4' | Her DB2 API çağrısına değere göre aktarıldı | Dört ayar girişi; ABI çözülmedi. |
-| 'varsayılan ayarlar' (`:61-64`) | Her biri iki 'PIC S9(4) COMP-5 VALUE 0' alanına sahip beş oluşum | Yalnızca "varsayılan değer(1..4)" kaydedilir ve geri yüklenir (`:93-97,137-141`); beşinci öğe ve 'varsayılan tür' burada kullanılmadı | Giriş akışı seçilirse yerel istek durumunda kaydedilen dört değer. |
-| 'SQLE-BAĞLANTI AYARI', 'SQLE-BAĞLANTI TİPİ', 'SQLE-BAĞLANTI-DEĞERİ' | Kullanılamayan 'sqlenv.cbl' (':49'); IBM Db2 11.5 belgeleri, iki "PIC S9(4) COMP-5" alanının yedi örneğini gösteriyor | Burada kullanılan ilk dört giriş | Dört tip/değer çifti; dağıtılan kopya kitabı revizyonu ve sayısal sabitler doğrulanmadı. |
-| 'SQLCA', 'SQL-*' sabitleri | Kullanılamayan 'sqlca.cbl' ve 'sql.cbl' (`:50-51`) | Hem bölümlerde hem de `checkerr'de kullanılır | Hata düzeni ve sabit değerler çözülmedi. |
-
-Giriş kaynağında hiçbir "REDEFINES", seviye-88 koşulu, ondalık ölçek veya yerel "COMP-3" alanı görünmüyor; eksik kopya defterleri bunları tanımlayabilir.
-
 
 ## Dış bağımlılıklar ve G/Ç
 
@@ -29,6 +18,19 @@ raporu yazar, olumlu uyarılardan sonra devam eder ve olumsuz hatalardan sonra p
 ## İş kuralları ve anlamsal riskler
 
 İstenen dört değiştirme kodu şunlardır: "SQL-CONNECT-2", "SQL-RULES-STD", "SQL-DISCONNECT-COND" ve "SQL-SYNC-TWOPHASE" (":100-103"). Kod 'rc'yi denetlemez; genel IBM `checkerr' referansı, olumlu SQLCODE uyarılarının devam ettiğini ve olumsuz hataların durduğunu gösterir. Yalnızca çalıştırmaları geri yükleme
+
+| Kaynak alanı / kaydı | PIC, uzunluk, ölçek, kodlama | Başlatma / koşullar | Önerilen Java gösterimi |
+| --- | --- | --- | --- |
+| 'rc' (':55') | 'PIC S9(9) COMP-5' | API dönüş hedefi, burada hiçbir zaman denetlenmedi | Yerel imzalı tamsayı; tam ABI, DB2 tanımlarına bağlıdır. |
+| 'hata' (':56') | 'RESİM X(80)' | "checkerr" öncesindeki etiketleri sorgulamak/ayarlamak için ayarla (`:88-89,120-121,133-134,153-154`) | Hata-işlem etiketi; COBOL pedleri 80 genişliğe taşıyın. |
+| 'liste numarası' (`:59`) | 'PIC S9(4) COMP-5 DEĞER 4' | Her DB2 API çağrısına değere göre aktarıldı | Dört ayar girişi; ABI çözülmedi. |
+| 'varsayılan ayarlar' (`:61-64`) | Her biri iki 'PIC S9(4) COMP-5 VALUE 0' alanına sahip beş oluşum | Yalnızca "varsayılan değer(1..4)" kaydedilir ve geri yüklenir (`:93-97,137-141`); beşinci öğe ve 'varsayılan tür' burada kullanılmadı | Giriş akışı seçilirse yerel istek durumunda kaydedilen dört değer. |
+| 'SQLE-BAĞLANTI AYARI', 'SQLE-BAĞLANTI TİPİ', 'SQLE-BAĞLANTI-DEĞERİ' | Kullanılamayan 'sqlenv.cbl' (':49'); IBM Db2 11.5 belgeleri, iki "PIC S9(4) COMP-5" alanının yedi örneğini gösteriyor | Burada kullanılan ilk dört giriş | Dört tip/değer çifti; dağıtılan kopya kitabı revizyonu ve sayısal sabitler doğrulanmadı. |
+| 'SQLCA', 'SQL-*' sabitleri | Kullanılamayan 'sqlca.cbl' ve 'sql.cbl' (`:50-51`) | Hem bölümlerde hem de `checkerr'de kullanılır | Hata düzeni ve sabit değerler çözülmedi. |
+
+Giriş kaynağında hiçbir "REDEFINES", seviye-88 koşulu, ondalık ölçek veya yerel "COMP-3" alanı görünmüyor; eksik kopya defterleri bunları tanımlayabilir.
+
+
 
 
 
