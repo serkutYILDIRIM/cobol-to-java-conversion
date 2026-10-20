@@ -20,6 +20,4 @@ public final class ApiExceptionHandler {
         detail.setDetail("Provide all four client settings using the documented symbolic values.");
         return detail;
     }
-
-
 }
