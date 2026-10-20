@@ -21,11 +21,5 @@ public final class ApiExceptionHandler {
         return detail;
     }
 
-        @ExceptionHandler(HttpMessageNotReadableException.class)
-        public ProblemDetail unreadableRequest(HttpMessageNotReadableException exception) {
-        ProblemDetail detail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
-        detail.setTitle("Invalid request body");
-        detail.setDetail("Send a JSON object with valid client setting values.");
-        return detail;
-    }
+
 }
