@@ -26,7 +26,6 @@ public final class ApiExceptionHandler {
         ProblemDetail detail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
         detail.setTitle("Invalid request body");
         detail.setDetail("Send a JSON object with valid client setting values.");
-      
         return detail;
     }
 }
