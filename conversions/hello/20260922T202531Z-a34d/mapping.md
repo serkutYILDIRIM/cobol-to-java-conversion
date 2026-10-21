@@ -10,7 +10,8 @@
 ## Bilinçli farklılıklar
 
 `DISPLAY` çıktısı,
-JSON formatında bir HTTP yanıtına uyarlanmıştır. Dolgu boşlukları dahil olmak üzere 30 karakterlik alan değeri korunmuştur. `STOP RUN` komutu JVM'i sonlandırmaz; bunun yerine HTTP işlemini tamamlar.
+JSON formatında bir HTTP yanıtına uyarlanmıştır. Dolgu boşlukları hi
+olmak üzere 30 karakterlik alan değeri korunmuştur. `STOP RUN` komutu JVM'i sonlandırmaz; bunun yerine HTTP işlemini tamamlar.
 
 ## Hariç tutulan işlevler
 
