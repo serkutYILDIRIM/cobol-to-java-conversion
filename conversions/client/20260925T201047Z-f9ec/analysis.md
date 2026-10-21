@@ -2,16 +2,13 @@
 
 ## Evidence and purpose
 
-
-
-
-urce has ASCII-only bytes and CRLF endings; the original code page, compiler options, and DB2 runtime version are unknown. There is no declared input file or terminal read. The program calls DB2 APIs and writes console `DISPLAY` output (`:69-251`).
+Full-program scope selected. All line references below are to `COBOL_PROGRAM/CLIENT.CBL`. Lines 20-28 identify an IBM DB2 sample for querying and setting client connection settings. Lines 43-66 contain Identification, Data, and Procedure divisions with fixed-format-style columns. The source has ASCII-only bytes and CRLF endings; the original code page, compiler options, and DB2 runtime version are unknown. There is no declared input file or terminal read. The program calls DB2 APIs and writes console `DISPLAY` output (`:69-251`).
 
 ## Data definitions
 
 | Source field / record | PIC, length, scale, encoding | Initialization / conditions | Proposed Java representation |
 | --- | --- | --- | --- |
-| `rc` (`:55`Full-program scope selected. All line references below are to `COBOL_PROGRAM/CLIENT.CBL`. Lines 20-28 identify an IBM DB2 sample for querying and setting client connection settings. Lines 43-66 contain Identification, Data, and Procedure divisions with fixed-format-style columns. The so) | `PIC S9(9) COMP-5` | API return target, never inspected here | Native signed integer; exact ABI depends on DB2 definitions. |
+| `rc` (`:55`) | `PIC S9(9) COMP-5` | API return target, never inspected here | Native signed integer; exact ABI depends on DB2 definitions. |
 | `errloc` (`:56`) | `PIC X(80)` | Set to query/set labels before `checkerr` (`:88-89,120-121,133-134,153-154`) | Error-operation label; COBOL move pads to width 80. |
 | `listnumber` (`:59`) | `PIC S9(4) COMP-5 VALUE 4` | Passed by value to each DB2 API call | Four setting entries; ABI unresolved. |
 | `default-settings` (`:61-64`) | Five occurrences, each with two `PIC S9(4) COMP-5 VALUE 0` fields | Only `default-value(1..4)` are saved and restored (`:93-97,137-141`); fifth element and `default-type` unused here | Four saved values in request-local state if entry flow is selected. |
