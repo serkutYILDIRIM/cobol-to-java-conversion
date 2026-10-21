@@ -5,13 +5,9 @@
 Source: `COBOL_PROGRAM/HELLO_FROM_IBM.CBL`.
 
 - Lines 1-2 identify a COBOL program with `PROGRAM-ID. HELLO`.
-- Lines 4-5 contain an `ENVIRONMENT DIVISION` and `CONFIG
--
--
-- sdfURATION SECTION`, with no environment entries.
+- Lines 4-5 contain an `ENVIRONMENT DIVISION` and `CONFIGURATION SECTION`, with no environment entries.
 - Lines 7-9 define one working-storage field.
-
-
+- Lines 11-14 define the sole procedure paragraph, `MAIN-LOGIC`, which displays the initialized message and executes `STOP RUN`.
 
 The observed purpose is to write a fixed text message to the COBOL display output and terminate. No conversion scope has been selected, so this is not yet a Java implementation contract.
 
