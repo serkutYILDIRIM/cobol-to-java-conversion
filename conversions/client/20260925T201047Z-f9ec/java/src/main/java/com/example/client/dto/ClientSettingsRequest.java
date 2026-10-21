@@ -14,7 +14,6 @@ public record ClientSettingsRequest(
         @NotNull SyncpointMode syncpoint) {
 
     public ClientSettings toModel() {
-            
         return new ClientSettings(connectionType, rules, disconnect, syncpoint);
             
     }
