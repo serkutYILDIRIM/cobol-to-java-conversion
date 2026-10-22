@@ -14,13 +14,14 @@
 
 <Seçilen giriş noktalarını, fiili yürütme sırasını, döngüleri, dallanmaları, ardışık yürütmeleri (fall-through), paylaşılan durumu, başlatma ve temizleme işlemlerini listeleyin. Dahil edilen her bir destekleyici yordamı açıklayın ve dahil edilmeyenlerin neden gereksiz olduğunu belirtin.>
 
-## Dış bağımlılıklar ve G/Ç (I/O)
-
-<Dosyaları, COPY, CALL, SQL, CICS öğelerini, şemaları, kayıt düzenlerini, durumları ve eksik bileşenleri envanterleyin. Akış/kaynak sahipliğini ve hata durumundaki davranışları belirtin.>
-
 ## İş kuralları ve anlamsal riskler
 
 <Hesaplamaları, yuvarlama işlemlerini, taşmaları (overflow), kırpmaları (truncation), sınırlayıcıları, dolgu (padding) işlemlerini, tarihleri, dosya sonu (EOF) davranışlarını, çıktı biçimlendirmesini ve çözülmemiş hataları belgeleyin. İlgili karar kimliklerini (decision ID) referans olarak ekleyin.>
+
+## Dış bağımlılıklar ve G/Ç (I/O)
+
+<Dosyaları, COPY, CALL, SQL, CICS öğelerini, şemaları ve kayıt düzenlerini, durumları ve eksik bileşenleri envanterleyin. Akış/kaynak sahipliğini ve hata durumundaki davranışları belirtin.>
+
 
 ## Java API ve veri erişim sözleşmeleri
 
