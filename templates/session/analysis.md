@@ -32,13 +32,12 @@ kısmi kapsam için gereken durumu, girdi/çıktı aktarımını ve bu oturumu u
 | --- | --- | --- | --- |
 | <konum> | <metin> | <etki> | <referans> |
 
-
-## Doğrulama tasarımı
-
-<Normal durumları, sınır değerlerini ve hata senaryolarını ve durum yalıtımı (state-isolation) gerektiren durumları; beklenen sonuçları ve bunların kanıt kaynaklarıyla (gözlemlenen COBOL çalışması, kaynak incelemesi veya kullanıcı kararı) birlikte listeleyin.>
-
 ## Veri tanımları
 
 | Kaynak alanı / kaydı | PIC, uzunluk, ölçek, kodlama | Başlatma / koşullar | Önerilen Java gösterimi |
 | --- | --- | --- | --- |
-| <alan> | <tanım> | <durum> | <tür ve kısıtlamalar> |
+| <alan> | <tanım> | <durum> | <tür ve kısıtlamaları> |
+
+## Doğrulama tasarımı
+
+<Normal durumları, sınır değerlerini ve hata senaryolarını ve durum yalıtımı (state-isolation) gerektiren durumları; beklenen sonuçları ve bunların kanıt kaynaklarıyla (gözlemlenen COBOL çalışması, kaynak incelemesi veya kullanıcı kararı) birlikte listeleyin.>
