@@ -27,7 +27,8 @@ Programın bütünü için her iki bölüm de gereklidir. Bağımlılık kapsam�
 
 ## İş kuralları ve anlamsal riskler
 
-Talep edilen dört yeni kod şunlardır: `SQL-CONNECT-2`, `SQL-RULES-STD`, `SQL-DISCONNECT-COND` ve `SQL-SYNC-TWOPHASE` (`:100-103`). Kod, `rc` değerini denetlemez; IBM'in herkese açık `checkerr` referansına göre, pozitif SQLCODE değerleri uyarı niteliğindedir ve işlemin devam etmesine izin verirken, negatif değerler hata teşkil eder ve işlemin durdurulmasını gerektirir. Geri yükleme (restore) işlemi yalnızca...
+Talep edilen dört yeni kod şunlardır: `SQL-CONNECT-2`, `SQL-RULES-STD`, `SQL-DISCONNECT-COND` ve `SQL-SYNC-TWOPHASE` (`:100-103`). Kod, `rc` değerini denetlemez; IBM'in herkese açık `checkerr` referansına göre, pozitif SQLCODE değerleri uyarı niteliğindedir ve işlemin devam etmesine izin verirbn
+n, negatif değerler hata teşkil eder ve işlemin durdurulmasını gerektirir. Geri yükleme (restore) işlemi yalnızca...
 
 ## Harici bağımlılıklar ve G/Ç (Giriş/Çıkış)
 
