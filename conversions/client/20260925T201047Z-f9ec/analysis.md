@@ -12,7 +12,8 @@ Programın tamamı kapsama dahil edilmiştir. Aşağıdaki tüm satır referansl
 | `errloc` (`:56`) | `PIC X(80)` | `checkerr` çağrısından önce sorgu/ayar etiketlerini tutar (`:88-89, 120-121, 133-134, 153-154`) | Hata işlemi etiketi; COBOL'daki "move" işlemi, alanı 80 karakter genişliğine tamamlar (padding). |
 | `listnumber` (`:59`) | `PIC S9(4) COMP-5 VALUE 4` | Her DB2 API çağrısına değer olarak aktarılır | Dört ayar girişi; ABI henüz belirlenmemiştir. |
 | `default-settings` (`:61-64`) | Beş tekrar (occurrence); her biri iki adet `PIC S9(4) COMP-5 VALUE 0` alanı içerir | Yalnızca `default-value(1..4)` değerleri kaydedilip geri yüklenmektedir (`:93-97, 137-141`); beşinci öğe ve `default-type` burada kullanılmamaktadır | İşlem akışına bağlı olarak, istek kapsamındaki (request-local) durumda saklanan dört değer. |
-| `SQLE-CONN-SETTING`, `SQLE-CONN-TYPE`, `SQLE-CONN-VALUE` | `sqlenv.cbl` dosyası mevcut değil (`:49`); IBM Db2 11.5 belgelerinde, `PIC S9(4) COMP-5` tipinde iki alanın yedi kez geçtiği görülüyor | Burada ilk dört giriş kullanılmış | Dört adet tip/değer çifti; kullanılan "copybook" revizyonu ve sayısal sabitler doğrulanmamıştır. |
+| `SQLE-CONN-SETTING`, `SQLE-CONN-TYPE`, `SQLE-CONN-VALUE` | `sqlenv.cbl` dosyası mevcut değil (`:49`); IBM Db2 11.5 belgelerinde, `PIC S9(4) COMP-5` tipinde iki alanın yedi kez geçtiği görülüyor | Burada ilk dört giriş kullanılmış | Dört adet tip/değer çifti; 
+" revizyonu ve sayısal sabitler doğrulanmamıştır. |
 | `SQLCA`, `SQL-*` sabitleri | `sqlca.cbl` ve `sql.cbl` dosyaları mevcut değil (`:50-51`) | Hem ilgili bölümlerde hem de `checkerr` yordamında kullanılıyor | Hata düzeni ve sabit değerler belirlenememiştir. |
 
 Kaynak kodda `REDEFINES` ifadesi, 88. seviye (level-88) koşul tanımları, ondalık ölçeklendirme veya yerel `COMP-3` alanları bulunmamaktadır; ancak eksik olan "copybook" dosyalarında bunlar tanımlanmış olabilir.
