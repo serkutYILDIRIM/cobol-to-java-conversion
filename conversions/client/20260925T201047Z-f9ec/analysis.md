@@ -17,18 +17,20 @@ Programın tamamı kapsama dahil edilmiştir. Aşağıdaki tüm satır referansl
 
 Kaynak kodda `REDEFINES` ifadesi, 88. seviye (level-88) koşul tanımları, ondalık ölçeklendirme veya yerel `COMP-3` alanları bulunmamaktadır; ancak eksik olan "copybook" dosyalarında bunlar tanımlanmış olabilir.
 
+du, her sorgudan elde edilen dört değer, orijinal değer yakalama mekanizması, değiştirme kodları, iki küme işlemi, her harici çağrı için `SQLCA` ve `checkerr` öğeleri ile tüm `DISPLAY` çıktılarını içerir. `print-query` yordamı, sorgulanan 
+
+## İş kuralları ve anlamsal riskler
+
+Talep edilen dört yeni kod şunlardır: `SQL-CONNECT-2`, `SQL-RULES-STD`, `SQL-DISCONNECT-COND` ve `SQL-SYNC-TWOPHASE` (`:100-103`). Kod, `rc` değerini denetlemez; IBM'in herkese açık `checkerr` referansına göre, pozitif SQLCODE değerleri uyarı niteliğindedir ve işlemin devam etmesine izin verirbn
+n, negatif değerler hata teşkil eder ve işlemin durdurulmasını gerektirir. Geri yükleme (restore) işlemi yalnızca...
+
 
 ## Seçili kontrol akışı ve bağımlılık kapsamı
 
 `client-pgm` bölümü (`:67-156`), dört adet ayar tipi kodu belirler (`:72-75`), `sqlgqryc` ile sorgulama yapar, `checkerr` yordamını çağırır ve `print-query` kısmını çalıştırır (`:77-91`). Dönen dört değeri kaydeder (`:93-97`), kod içine sabitlenmiş (hard-coded) dört yeni değer atar (`:100-103`), `sqlgsetc` ve `checkerr` yordamlarını çağırır (`:105-121`), tekrar sorgulama yapıp sonuçları yazdırır (`:123-136`) ve ardından `sqlgsetc` ile `checkerr` kullanarak kaydedilen eski değerleri geri yükler (`:137-154`). `STOP RUN` komutu (`:156`), program akışının `print-query` bölümüne (`:158-251`) kendiliğinden geçmesini engeller. `print-query` bölümü iki kez çağrılır (`:91, 136`) ve `EXIT` ile sonlanır. Kodda herhangi bir döngü, `PERFORM THRU` yapısı, `GO TO` ifadesi, işlem dağıtıcı (transaction dispatcher) veya dosya sonu (EOF) mantığı bulunmamaktadır.
 
 Programın bütünü için her iki bölüm de gereklidir. Bağımlılık kapsamıdeğerlere ve "copybook" (kopyalama kitabı/tanımlama dosyası) sabitlerine ihtiyaç duyar. Harici API ve hata işleme mantığına ilişkin detaylar; ilgili "copybook" dosyaları, `checkerr` yordamı ve hedef Db2 bağlamı henüz mevcut olmadığından belirsizliğini korumaktadır.
-; dört adet ayar türü kodu, her sorgudan elde edilen dört değer, orijinal değer yakalama mekanizması, değiştirme kodları, iki küme işlemi, her harici çağrı için `SQLCA` ve `checkerr` öğeleri ile tüm `DISPLAY` çıktılarını içerir. `print-query` yordamı, sorgulanan 
-
-## İş kuralları ve anlamsal riskler
-
-Talep edilen dört yeni kod şunlardır: `SQL-CONNECT-2`, `SQL-RULES-STD`, `SQL-DISCONNECT-COND` ve `SQL-SYNC-TWOPHASE` (`:100-103`). Kod, `rc` değerini denetlemez; IBM'in herkese açık `checkerr` referansına göre, pozitif SQLCODE değerleri uyarı niteliğindedir ve işlemin devam etmesine izin verirbn
-n, negatif değerler hata teşkil eder ve işlemin durdurulmasını gerektirir. Geri yükleme (restore) işlemi yalnızca...
+; dört adet ayar türü ko
 
 ## Harici bağımlılıklar ve G/Ç (Giriş/Çıkış)
 
