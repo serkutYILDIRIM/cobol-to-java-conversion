@@ -19,5 +19,6 @@ public record ClientSettingsDto(
                 settings.rules(),
                 settings.disconnect(),
                 settings.syncpoint());
+        
     }
 }
