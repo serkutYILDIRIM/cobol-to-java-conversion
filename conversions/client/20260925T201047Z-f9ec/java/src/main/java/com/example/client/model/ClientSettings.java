@@ -18,7 +18,6 @@ public record ClientSettings(
     public enum ConnectionType { SQL_CONNECT_1, SQL_CONNECT_2 }
         
     public enum SqlRules { SQL_RULES_DB2, SQL_RULES_STD }
-        
     public enum DisconnectMode { SQL_DISCONNECT_EXPL, SQL_DISCONNECT_COND, SQL_DISCONNECT_AUTO }
     public enum SyncpointMode { SQL_SYNC_TWOPHASE, SQL_SYNC_ONEPHASE, SQL_SYNC_NONE }
 }
