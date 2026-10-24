@@ -18,7 +18,6 @@ public class HelloController {
 
     @GetMapping
     public HelloResponse getHello() {
-        
         return new HelloResponse(helloService.getMessage());
     }
 }
