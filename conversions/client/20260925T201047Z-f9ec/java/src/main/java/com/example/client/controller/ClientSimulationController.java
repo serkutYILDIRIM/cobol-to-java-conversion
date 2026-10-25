@@ -24,6 +24,5 @@ public final class ClientSimulationController {
         
         return SimulationResponse.from(service.simulate(request.toModel()));
         
-    }
-    
+    }   
 }
