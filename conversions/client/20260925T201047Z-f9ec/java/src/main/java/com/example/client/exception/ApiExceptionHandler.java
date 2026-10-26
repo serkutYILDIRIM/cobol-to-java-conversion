@@ -21,7 +21,8 @@ public final class ApiExceptionHandler {
         return detail;
     }
 
-      @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+  
     public ProblemDetail unreadableRequest(HttpMessageNotReadableException exception) {
       
         ProblemDetail detail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
