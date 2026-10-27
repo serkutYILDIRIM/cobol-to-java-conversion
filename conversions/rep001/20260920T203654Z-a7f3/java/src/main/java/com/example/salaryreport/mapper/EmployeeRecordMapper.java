@@ -17,7 +17,6 @@ public class EmployeeRecordMapper {
             throw new InvalidEmployeeDataException(
                     "Record %d must contain exactly 80 characters; found %d."
                             .formatted(lineNumber, actualWidth));
-            
         }
 
     private static final int RECORD_WIDTH = 80;
