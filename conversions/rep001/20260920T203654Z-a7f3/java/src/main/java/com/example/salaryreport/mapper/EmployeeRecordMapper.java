@@ -11,7 +11,6 @@ public class EmployeeRecordMapper {
    private static final int RECORD_WIDTH = 80;
         
    public Employee map(String record, int lineNumber) {
-        
         int actualWidth = record.codePointCount(0, record.length());
         
         if (actualWidth != RECORD_WIDTH) {
