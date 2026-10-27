@@ -8,13 +8,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmployeeRecordMapper {
 
-   private static final int RECORD_WIDTH = 80;
+    private static final int RECORD_WIDTH = 80;
         
-   public Employee map(String record, int lineNumber) {
+    public Employee map(String record, int lineNumber) {
         int actualWidth = record.codePointCount(0, record.length());
-        
         if (actualWidth != RECORD_WIDTH) {
-            
             throw new InvalidEmployeeDataException(
                     "Record %d must contain exactly 80 characters; found %d."
                             .formatted(lineNumber, actualWidth));
