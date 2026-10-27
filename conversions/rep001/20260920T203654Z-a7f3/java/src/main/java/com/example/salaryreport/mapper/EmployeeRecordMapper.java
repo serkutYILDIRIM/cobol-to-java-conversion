@@ -10,8 +10,6 @@ public class EmployeeRecordMapper {
 
     private static final int RECORD_WIDTH = 80;
 
-
-
         String salaryDigits = slice(record, 45, 53);
         if (!salaryDigits.matches("[0-9]{8}")) {
             throw new InvalidEmployeeDataException(
