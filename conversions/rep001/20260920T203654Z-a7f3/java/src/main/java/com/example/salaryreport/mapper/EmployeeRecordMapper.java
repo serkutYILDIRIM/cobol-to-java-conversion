@@ -8,7 +8,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmployeeRecordMapper {
 
-        public Employee map(String record, int lineNumber) {
+   private static final int RECORD_WIDTH = 80;
+        
+   public Employee map(String record, int lineNumber) {
         
         int actualWidth = record.codePointCount(0, record.length());
         
