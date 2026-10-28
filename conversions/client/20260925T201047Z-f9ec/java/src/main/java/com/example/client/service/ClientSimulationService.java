@@ -28,7 +28,6 @@ public final class ClientSimulationService {
         output.add("Sample COBOL Program : CLIENT.CBL");
         output.add("QUERY CLIENT");   
         output.addAll(formatter.format(initial));
-
         ClientSettings saved = initial;
         output.add("SET CLIENT");
         output.add("connect type     = SQL-CONNECT-2");
