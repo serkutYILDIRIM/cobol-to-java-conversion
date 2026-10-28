@@ -36,7 +36,6 @@ public final class ClientSimulationService {
         ClientSettings changed = REQUESTED;
         output.add("QUERY CLIENT");
         output.addAll(formatter.format(changed));
-
         ClientSettings restored = saved;
         output.add("SET CLIENT");
         
