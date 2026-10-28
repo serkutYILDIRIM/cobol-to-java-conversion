@@ -33,7 +33,6 @@ public final class ClientSimulationService {
         output.add("connect type     = SQL-CONNECT-2");
         output.add("rules            = SQL-RULES-STD");
         output.add("syncpoint        = SQL-SYNC-TWOPHASE");
-
         ClientSettings changed = REQUESTED;
         output.add("QUERY CLIENT");
         output.addAll(formatter.format(changed));
