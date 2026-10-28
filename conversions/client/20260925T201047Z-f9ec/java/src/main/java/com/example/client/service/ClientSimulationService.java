@@ -26,8 +26,7 @@ public final class ClientSimulationService {
     public SimulationResult simulate(ClientSettings initial) {
         List<String> output = new ArrayList<>();
         output.add("Sample COBOL Program : CLIENT.CBL");
-        output.add("QUERY CLIENT");
-        
+        output.add("QUERY CLIENT");   
         output.addAll(formatter.format(initial));
 
         ClientSettings saved = initial;
