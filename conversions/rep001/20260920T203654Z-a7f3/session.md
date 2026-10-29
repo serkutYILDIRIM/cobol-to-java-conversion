@@ -18,7 +18,14 @@ Durum: tamamlandı
 - Kullanıcının kapsam beyanı: `COBOL_PROGRAM/SalaryReport.CBL` dosyasındaki tüm COBOL kodunun, programın tamamını kapsayacak şekilde dönüştürülmesi
 - Gereken destekleyici davranışlar: çalışan kaydı ayrıştırma, dosya yaşam döngüsü, çalışma bazlı durum yönetimi, tarih edinimi, rapor biçimlendirme, sayfalama, toplamlar, dosya sonu (EOF) yönetimi ve hata çevirisi
 - Açıkça hariç tutulanlar: `REP001` içinde yok; işlem dağıtımı (transaction dispatch) veya dışarıdan çağrılan bir program bulunmuyor.
+- 
+## İlerleme Durumu
 
+- Analiz: tamamlandı.
+- Sözleşme (arayüz) tanımı: tamamlandı
+- Uygulama: tamamlandı
+- Doğrulama: 16 adet Java testi ile başarıyla tamamlandı; kaynak veri özeti (hash) ve UTF-8 geçerliliği yeniden kontrol edildi
+- Mevcut kısıtlamalar: Kabul edilmiş bir giriş/çıkış veri seti, belirli bir derleyici/lehçe veya çalıştırılabilir bir COBOL çalışma zamanı ortamı (runtime) bulunmadığından, COBOL yürütme süreciyle tam eşdeğerlik doğrulanamamıştır.
 ## Kararlar
 
 | Kimlik | Kaynak bulgusu / soru | Kullanıcı yanıtı veya belirlenen gereksinim | Durum / etki |
@@ -32,10 +39,4 @@ Durum: tamamlandı
 | D-07 | Hatalı biçimlendirilmiş giriş, taşma (overflow) durumları ve G/Ç (I/O) hatalarında ne yapılmalıdır? | Her kayıt tam olarak 80 karakter uzunluğunda olmalıdır; hatalı biçimlendirilmiş kayıtlar için HTTP 400, sayısal taşma durumları için HTTP 422, beklenmedik G/Ç hataları için ise HTTP 500 hata kodları kullanılmalıdır. | Çözüldü; hata türüne özel yanıt yapıları uygulanmıştır. |
 | D-08 | Sayfa başına 36 detay satırı olan orijinal yapı korunmalı mı, yoksa 40 satıra mı düzeltilmeli? | 36 satır korunmalıdır. | Çözüldü; orijinal sayaç mantığı muhafaza edilmiştir. |
 
-## İlerleme Durumu
 
-- Analiz: tamamlandı
-- Sözleşme (arayüz) tanımı: tamamlandı
-- Uygulama: tamamlandı
-- Doğrulama: 16 adet Java testi ile başarıyla tamamlandı; kaynak veri özeti (hash) ve UTF-8 geçerliliği yeniden kontrol edildi
-- Mevcut kısıtlamalar: Kabul edilmiş bir giriş/çıkış veri seti, belirli bir derleyici/lehçe veya çalıştırılabilir bir COBOL çalışma zamanı ortamı (runtime) bulunmadığından, COBOL yürütme süreciyle tam eşdeğerlik doğrulanamamıştır.
