@@ -26,7 +26,7 @@ Durum: tamamlandı
 - Uygulama: tamamlandı
 - Doğrulama: 16 adet Java testi ile başarıyla tamamlandı; kaynak veri özeti (hash) ve UTF-8 geçerliliği yeniden kontrol edildi
 - Mevcut kısıtlamalar: Kabul edilmiş bir giriş/çıkış veri seti, belirli bir derleyici/lehçe veya çalıştırılabilir bir COBOL çalışma zamanı ortamı (runtime) bulunmadığından, COBOL yürütme süreciyle tam eşdeğerlik doğrulanamamıştır.
-## Kararlar
+## Karar lar
 
 | Kimlik | Kaynak bulgusu / soru | Kullanıcı yanıtı veya belirlenen gereksinim | Durum / etki |
 | --- | --- | --- | --- |
@@ -35,9 +35,6 @@ Durum: tamamlandı
 | D-03 | 145-149 numaralı satırlar `DET-EMP-NAME` değişkenini ilklendirmiyor. | Her bir çalışan için 30 karakterlik isim alanını temizleyin. | Çözüldü; yapılan bilinçli düzeltme, önceki kayıtlara ait verilerin (son eklerin) yeni kayıtlara sızmasını önler. |
 | D-04 | HTTP uygulaması, çalışan verilerini nasıl almalı ve raporu nasıl döndürmelidir? | `POST /api/v1/salary-reports` uç noktası, sabit genişlikli ham verileri kabul eder ve `text/plain` formatında yanıt döner. | Çözüldü; sunucu dosya sistemi yolları dışa açılmamaktadır. |
 
-| D-05 | Harici sabit genişlikli giriş verileri ve rapor çıktıları hangi kodlamayı kullanmalıdır? | UTF-8; genişlikler Unicode karakterleri baz alınarak hesaplanmalıdır. | Çözüldü; hatalı biçimlendirilmiş UTF-8 verileri kesinlikle reddedilecektir. |
-| D-06 | Önerilen sabit genişlikli İngilizce çeviriler kabul edildi mi? | Tüm öneriler kabul edildi. | Çözüldü; `analysis.md` dosyasında listelenen çeviriler kullanılacaktır. |
-| D-08 | Sayfa başına 36 detay satırı olan orijinal yapı korunmalı mı, yoksa 40 satıra mı düzeltilmeli? | 36 satır korunmalıdır. | Çözüldü; orijinal sayaç mantığı muhafaza edilmiştir. |Hatalı biçimlendirilmiş giriş, taşma (overflow) durumları ve G/Ç (I/O) hatalarında ne yapılmalıdır? | Her kayıt tam olarak 80 karakter uzunluğunda olmalıdır; hatalı biçimlendirilmiş kayıtlar için HTTP 400, sayısal taşma durumları için HTTP 422, beklenmedik G/Ç hataları için ise HTTP 500 hata kodları kullanılmalıdır. | Çözüldü; hata türüne özel yanıt yapıları uygulanmıştır. |
 
 
 
