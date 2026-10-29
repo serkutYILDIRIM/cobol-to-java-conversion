@@ -34,9 +34,10 @@ Durum: tamamlandı
 | D-02 | 191-193. satırlar, standart COBOL'a uygun olmayan sayfa ilerletme (page-advance) sözdizimi içeriyor. | 2. sayfadan itibaren başlıkların öncesine bağımsız bir form-feed (sayfa başı) karakteri ekle. | Çözümlendi; metin raporu için açık sayfa ayırıcı eklendi. |
 | D-03 | 145-149 numaralı satırlar `DET-EMP-NAME` değişkenini ilklendirmiyor. | Her bir çalışan için 30 karakterlik isim alanını temizleyin. | Çözüldü; yapılan bilinçli düzeltme, önceki kayıtlara ait verilerin (son eklerin) yeni kayıtlara sızmasını önler. |
 | D-04 | HTTP uygulaması, çalışan verilerini nasıl almalı ve raporu nasıl döndürmelidir? | `POST /api/v1/salary-reports` uç noktası, sabit genişlikli ham verileri kabul eder ve `text/plain` formatında yanıt döner. | Çözüldü; sunucu dosya sistemi yolları dışa açılmamaktadır. |
+
 | D-05 | Harici sabit genişlikli giriş verileri ve rapor çıktıları hangi kodlamayı kullanmalıdır? | UTF-8; genişlikler Unicode karakterleri baz alınarak hesaplanmalıdır. | Çözüldü; hatalı biçimlendirilmiş UTF-8 verileri kesinlikle reddedilecektir. |
 | D-06 | Önerilen sabit genişlikli İngilizce çeviriler kabul edildi mi? | Tüm öneriler kabul edildi. | Çözüldü; `analysis.md` dosyasında listelenen çeviriler kullanılacaktır. |
-| D-07 | Hatalı biçimlendirilmiş giriş, taşma (overflow) durumları ve G/Ç (I/O) hatalarında ne yapılmalıdır? | Her kayıt tam olarak 80 karakter uzunluğunda olmalıdır; hatalı biçimlendirilmiş kayıtlar için HTTP 400, sayısal taşma durumları için HTTP 422, beklenmedik G/Ç hataları için ise HTTP 500 hata kodları kullanılmalıdır. | Çözüldü; hata türüne özel yanıt yapıları uygulanmıştır. |
-| D-08 | Sayfa başına 36 detay satırı olan orijinal yapı korunmalı mı, yoksa 40 satıra mı düzeltilmeli? | 36 satır korunmalıdır. | Çözüldü; orijinal sayaç mantığı muhafaza edilmiştir. |
+| D-08 | Sayfa başına 36 detay satırı olan orijinal yapı korunmalı mı, yoksa 40 satıra mı düzeltilmeli? | 36 satır korunmalıdır. | Çözüldü; orijinal sayaç mantığı muhafaza edilmiştir. |Hatalı biçimlendirilmiş giriş, taşma (overflow) durumları ve G/Ç (I/O) hatalarında ne yapılmalıdır? | Her kayıt tam olarak 80 karakter uzunluğunda olmalıdır; hatalı biçimlendirilmiş kayıtlar için HTTP 400, sayısal taşma durumları için HTTP 422, beklenmedik G/Ç hataları için ise HTTP 500 hata kodları kullanılmalıdır. | Çözüldü; hata türüne özel yanıt yapıları uygulanmıştır. |
+
 
 
