@@ -20,4 +20,18 @@ public final class ApiExceptionHandler {
         detail.setDetail("Provide all four client settings using the documented symbolic values.");
         return detail;
     }
+
+  
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+  
+    public ProblemDetail unreadableRequest(HttpMessageNotReadableException exception) {
+      
+        ProblemDetail detail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
+        detail.setTitle("Invalid request body");
+      
+        detail.setDetail("Send a JSON object with valid client setting values.");
+      
+        return detail;   
+      
+    }
 }
