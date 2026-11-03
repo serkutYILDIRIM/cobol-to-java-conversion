@@ -66,5 +66,12 @@ class CustomerTransactionControllerTest {
         assertThat(response.body()).contains("\"recordsRead\":1", "\"recordsProcessed\":1", "JOHN DOE", "105.00");
     }
 
+    @Test
+    void invalidRecordReturnsProblemDetailWithoutTouchingMaster() throws Exception {
+        HttpResponse<String> response = post("too short\n");
 
+        assertThat(response.statusCode()).isEqualTo(400);
+        assertThat(response.body()).contains("Record 1 must be exactly 80 characters.")
+                .doesNotContain(dir.toString());
+    }
 }
