@@ -57,4 +57,14 @@ class CustomerTransactionControllerTest {
         return HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
     }
 
+    @Test
+    void validBatchReturnsReportAndUpdatesMaster() throws Exception {
+        String record = ReportFormatter.fit("C1", 10) + "D" + "000000500" + "20261031" + " ".repeat(52);
+        HttpResponse<String> response = post(record + "\n");
+
+        assertThat(response.statusCode()).isEqualTo(200);
+        assertThat(response.body()).contains("\"recordsRead\":1", "\"recordsProcessed\":1", "JOHN DOE", "105.00");
+    }
+
+
 }
