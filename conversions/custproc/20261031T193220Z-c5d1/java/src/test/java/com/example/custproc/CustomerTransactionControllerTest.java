@@ -40,4 +40,10 @@ class CustomerTransactionControllerTest {
         Files.write(master, FixedWidthAccountDao.encodeRecord(
                 new Account("C1", "JOHN DOE", new java.math.BigDecimal("100.00"), 'A')));
     }
+
+    @DynamicPropertySource
+    static void properties(DynamicPropertyRegistry registry) {
+        registry.add("custproc.master-file", () -> dir.resolve("master.dat").toString());
+    }
+
 }
