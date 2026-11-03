@@ -33,4 +33,11 @@ class CustomerTransactionControllerTest {
 
     @LocalServerPort
     int port;
+
+    @BeforeAll
+    static void createMaster() throws IOException {
+        master = dir.resolve("master.dat");
+        Files.write(master, FixedWidthAccountDao.encodeRecord(
+                new Account("C1", "JOHN DOE", new java.math.BigDecimal("100.00"), 'A')));
+    }
 }
