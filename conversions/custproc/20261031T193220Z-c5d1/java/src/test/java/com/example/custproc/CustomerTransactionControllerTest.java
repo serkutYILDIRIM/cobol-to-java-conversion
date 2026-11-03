@@ -21,7 +21,7 @@ import org.springframework.test.context.DynamicPropertySource;
 
 import com.example.custproc.dao.FixedWidthAccountDao;
 import com.example.custproc.mapper.ReportFormatter;
-
+import com.example.custproc.model.Account;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class CustomerTransactionControllerTest {
