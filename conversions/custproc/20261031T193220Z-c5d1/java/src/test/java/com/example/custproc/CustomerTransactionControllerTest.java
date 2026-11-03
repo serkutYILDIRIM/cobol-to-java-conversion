@@ -1,0 +1,77 @@
+package com.example.custproc;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+
+import com.example.custproc.dao.FixedWidthAccountDao;
+import com.example.custproc.mapper.ReportFormatter;
+import com.example.custproc.model.Account;
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+class CustomerTransactionControllerTest {
+
+    @TempDir
+    static Path dir;
+
+    static Path master;
+
+    @LocalServerPort
+    int port;
+
+    @BeforeAll
+    static void createMaster() throws IOException {
+        master = dir.resolve("master.dat");
+        Files.write(master, FixedWidthAccountDao.encodeRecord(
+                new Account("C1", "JOHN DOE", new java.math.BigDecimal("100.00"), 'A')));
+    }
+
+    @DynamicPropertySource
+    static void properties(DynamicPropertyRegistry registry) {
+        registry.add("custproc.master-file", () -> dir.resolve("master.dat").toString());
+    }
+
+    private HttpResponse<String> post(String fileContent) throws Exception {
+        String boundary = "testboundary";
+        String body = "--" + boundary + "\r\nContent-Disposition: form-data; name=\"file\"; filename=\"t.txt\"\r\n"
+                + "Content-Type: text/plain\r\n\r\n" + fileContent + "\r\n--" + boundary + "--\r\n";
+        HttpRequest request = HttpRequest.newBuilder(URI.create("http://localhost:" + port
+                + "/api/v1/customer-transactions/batch"))
+                .header("Content-Type", "multipart/form-data; boundary=" + boundary)
+                .POST(HttpRequest.BodyPublishers.ofString(body, StandardCharsets.ISO_8859_1)).build();
+        return HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+    }
+
+    @Test
+    void validBatchReturnsReportAndUpdatesMaster() throws Exception {
+        String record = ReportFormatter.fit("C1", 10) + "D" + "000000500" + "20261031" + " ".repeat(52);
+        HttpResponse<String> response = post(record + "\n");
+
+        assertThat(response.statusCode()).isEqualTo(200);
+        assertThat(response.body()).contains("\"recordsRead\":1", "\"recordsProcessed\":1", "JOHN DOE", "105.00");
+    }
+
+    @Test
+    void invalidRecordReturnsProblemDetailWithoutTouchingMaster() throws Exception {
+        HttpResponse<String> response = post("too short\n");
+
+        assertThat(response.statusCode()).isEqualTo(400);
+        assertThat(response.body()).contains("Record 1 must be exactly 80 characters.")
+                .doesNotContain(dir.toString());
+    }
+}
