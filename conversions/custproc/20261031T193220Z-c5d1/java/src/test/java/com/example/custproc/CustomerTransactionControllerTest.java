@@ -46,4 +46,15 @@ class CustomerTransactionControllerTest {
         registry.add("custproc.master-file", () -> dir.resolve("master.dat").toString());
     }
 
+    private HttpResponse<String> post(String fileContent) throws Exception {
+        String boundary = "testboundary";
+        String body = "--" + boundary + "\r\nContent-Disposition: form-data; name=\"file\"; filename=\"t.txt\"\r\n"
+                + "Content-Type: text/plain\r\n\r\n" + fileContent + "\r\n--" + boundary + "--\r\n";
+        HttpRequest request = HttpRequest.newBuilder(URI.create("http://localhost:" + port
+                + "/api/v1/customer-transactions/batch"))
+                .header("Content-Type", "multipart/form-data; boundary=" + boundary)
+                .POST(HttpRequest.BodyPublishers.ofString(body, StandardCharsets.ISO_8859_1)).build();
+        return HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+    }
+
 }
