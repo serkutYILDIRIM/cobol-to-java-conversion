@@ -42,7 +42,9 @@ public class PayrollReportFormatter {
         lines.add("PAYROLL SUMMARY");
         lines.add("Employee count:   " + report.employees().size());
         lines.add("Total gross:      " + formatAmount(report.totalGross()));
+
         lines.add("Total deductions: " + formatAmount(report.totalDeductions()));
+        
         lines.add("Total net:        " + formatAmount(report.totalNet()));
         lines.add("Average net:      " + formatAmount(report.averageNet()));
         lines.add("Employee with highest net salary: " + report.highestPaidEmployee());
