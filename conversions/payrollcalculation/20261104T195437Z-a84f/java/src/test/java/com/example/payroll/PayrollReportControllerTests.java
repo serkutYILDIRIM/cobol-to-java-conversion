@@ -67,4 +67,11 @@ class PayrollReportControllerTests {
                                 + "--------------------------------------------------\\n\"")));
     }
 
+    @Test
+    void unknownPathsReturnNotFound() throws Exception {
+        mockMvc.perform(get("/api/payroll/unknown"))
+                .andExpect(status().isNotFound());
+    }
+
+
 }
