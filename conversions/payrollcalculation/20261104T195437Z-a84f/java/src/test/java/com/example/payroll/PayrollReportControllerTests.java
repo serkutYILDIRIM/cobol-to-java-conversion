@@ -73,5 +73,25 @@ class PayrollReportControllerTests {
                 .andExpect(status().isNotFound());
     }
 
+    @Test
+    void concurrentRequestsReturnIndependentCompleteReports() throws Exception {
+        try (ExecutorService executor = Executors.newFixedThreadPool(4)) {
+            List<Future<String>> responses = new ArrayList<>();
+            for (int index = 0; index < 8; index++) {
+                responses.add(executor.submit(() ->
+                        mockMvc.perform(get("/api/payroll/report"))
+                                .andReturn()
+                                .getResponse()
+                                .getContentAsString()));
+            }
 
+            String expected = mockMvc.perform(get("/api/payroll/report"))
+                    .andReturn()
+                    .getResponse()
+                    .getContentAsString();
+            for (Future<String> response : responses) {
+                assertThat(response.get()).isEqualTo(expected);
+            }
+        }
+    }
 }
