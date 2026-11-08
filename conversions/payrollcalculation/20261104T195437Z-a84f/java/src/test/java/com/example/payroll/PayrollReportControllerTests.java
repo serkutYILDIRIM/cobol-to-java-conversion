@@ -24,5 +24,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 class PayrollReportControllerTests {
 
+    @Autowired
+    private PayrollReportController controller;
+    private MockMvc mockMvc;
+
+    @BeforeEach
+    void configureMockMvc() {
+        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+    }
+
 
 }
