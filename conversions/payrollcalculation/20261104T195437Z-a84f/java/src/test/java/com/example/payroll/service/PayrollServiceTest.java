@@ -31,4 +31,28 @@ class PayrollServiceTest {
         assertThat(report.highestPaidEmployee()).isEqualTo("Sample Employee A");
     }
 
+    @Test
+    void keepsReportStateIndependentBetweenCalls() {
+        PayrollReport first = payrollService.generateReport();
+        PayrollReport second = payrollService.generateReport();
+
+        assertThat(second).isEqualTo(first);
+        assertThat(second.employees()).isNotSameAs(first.employees());
+    }
+
+    private void assertEmployee(
+            EmployeePayroll payroll,
+            String bonus,
+            String overtime,
+            String gross,
+            String insurance,
+            String tax,
+            String net) {
+        assertMoney(payroll.bonusAmount(), bonus);
+        assertMoney(payroll.overtimePay(), overtime);
+        assertMoney(payroll.grossSalary(), gross);
+        assertMoney(payroll.insuranceAmount(), insurance);
+        assertMoney(payroll.taxAmount(), tax);
+        assertMoney(payroll.netSalary(), net);
+    }
 }
