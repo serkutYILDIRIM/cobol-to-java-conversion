@@ -55,4 +55,8 @@ class PayrollServiceTest {
         assertMoney(payroll.taxAmount(), tax);
         assertMoney(payroll.netSalary(), net);
     }
+
+    private void assertMoney(BigDecimal actual, String expected) {
+        assertThat(actual).isEqualByComparingTo(expected);
+    }
 }
