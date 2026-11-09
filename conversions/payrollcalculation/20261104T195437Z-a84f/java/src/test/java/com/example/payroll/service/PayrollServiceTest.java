@@ -39,6 +39,7 @@ class PayrollServiceTest {
         assertThat(second).isEqualTo(first);
         assertThat(second.employees()).isNotSameAs(first.employees());
     }
+<<<<<<< HEAD
 
     private void assertEmployee(
             EmployeePayroll payroll,
@@ -59,4 +60,6 @@ class PayrollServiceTest {
     private void assertMoney(BigDecimal actual, String expected) {
         assertThat(actual).isEqualByComparingTo(expected);
     }
+=======
+>>>>>>> c72df88b19aa53d849d9173984c0acd10fb37da4
 }
