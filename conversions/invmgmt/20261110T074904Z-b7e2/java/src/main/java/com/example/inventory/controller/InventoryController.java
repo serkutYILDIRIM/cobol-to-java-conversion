@@ -15,6 +15,7 @@ public class InventoryController {
         this.service = service;
     }
 
+    //
     @PostMapping("/runs")
     public InventoryRunResponse run() {
         return service.run();
