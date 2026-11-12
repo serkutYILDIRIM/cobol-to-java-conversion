@@ -20,4 +20,8 @@ public record InventoryRunResponse(List<ProductResult> products,
                                     boolean applied, String rejectionReason) {
     }
 
+    public record Summary(int processed, int rejected, int totalReceived, int totalSold,
+                          int lowStockCount, BigDecimal netValue, BigDecimal taxAmount,
+                          BigDecimal grossValue) {
+    }
 }
