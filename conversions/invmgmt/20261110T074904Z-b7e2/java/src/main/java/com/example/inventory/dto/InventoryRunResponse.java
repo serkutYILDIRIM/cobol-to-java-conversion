@@ -15,4 +15,9 @@ public record InventoryRunResponse(List<ProductResult> products,
                                 BigDecimal unitPrice, String status,
                                 BigDecimal stockValue, String flag) {
     }
+
+    public record TransactionResult(String code, String type, int quantity,
+                                    boolean applied, String rejectionReason) {
+    }
+
 }
