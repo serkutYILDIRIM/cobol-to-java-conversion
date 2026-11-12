@@ -11,4 +11,8 @@ public record InventoryRunResponse(List<ProductResult> products,
         transactions = List.copyOf(transactions);
     }
 
+    public record ProductResult(String code, String name, int quantity, int reorderLevel,
+                                BigDecimal unitPrice, String status,
+                                BigDecimal stockValue, String flag) {
+    }
 }
