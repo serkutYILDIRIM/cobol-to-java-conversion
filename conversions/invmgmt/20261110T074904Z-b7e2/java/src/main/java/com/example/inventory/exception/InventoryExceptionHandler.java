@@ -8,6 +8,8 @@ public class InventoryExceptionHandler {
 
     @ExceptionHandler(IllegalStateException.class)
     public ProblemDetail handleExecutionFailure(IllegalStateException exception) {
-
+        LOG.error("Inventory execution failed", exception);
+        return ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR,
+                "Inventory execution failed.");
     }
 }
