@@ -67,4 +67,8 @@ public class InventoryReportFormatter {
     private static String integer(int value, int width) {
         return number(BigDecimal.valueOf(value), "#,##0", width);
     }
+
+    private static String decimal(BigDecimal value, int width) {
+        return number(value, "#,##0.00", width);
+    }
 }
