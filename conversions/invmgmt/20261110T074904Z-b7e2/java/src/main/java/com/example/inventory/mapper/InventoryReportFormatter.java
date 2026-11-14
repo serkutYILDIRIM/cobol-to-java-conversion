@@ -63,4 +63,8 @@ public class InventoryReportFormatter {
     private static String money(String label, BigDecimal value) {
         return text(label, 30) + decimal(value, 14);
     }
+
+    private static String integer(int value, int width) {
+        return number(BigDecimal.valueOf(value), "#,##0", width);
+    }
 }
