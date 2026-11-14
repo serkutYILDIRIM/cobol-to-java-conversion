@@ -1,5 +1,16 @@
 package com.example.inventory.mapper;
 
+import com.example.inventory.dto.InventoryRunResponse.ProductResult;
+import com.example.inventory.dto.InventoryRunResponse.Summary;
+import com.example.inventory.dto.InventoryRunResponse.TransactionResult;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import org.springframework.stereotype.Component;
 
 @Component
 public class InventoryReportFormatter {
