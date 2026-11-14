@@ -59,4 +59,8 @@ public class InventoryReportFormatter {
     private static String count(String label, int value) {
         return text(label, 30) + integer(value % 1_000_000, 7);
     }
+
+    private static String money(String label, BigDecimal value) {
+        return text(label, 30) + decimal(value, 14);
+    }
 }
