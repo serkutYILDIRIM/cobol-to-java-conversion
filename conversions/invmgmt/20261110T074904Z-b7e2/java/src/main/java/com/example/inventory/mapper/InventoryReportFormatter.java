@@ -71,4 +71,11 @@ public class InventoryReportFormatter {
     private static String decimal(BigDecimal value, int width) {
         return number(value, "#,##0.00", width);
     }
+
+    private static String number(BigDecimal value, String picture, int width) {
+        var format = new DecimalFormat(picture, DecimalFormatSymbols.getInstance(Locale.US));
+        format.setRoundingMode(RoundingMode.UNNECESSARY);
+        String result = format.format(value);
+        return " ".repeat(Math.max(0, width - result.length())) + result;
+    }
 }
