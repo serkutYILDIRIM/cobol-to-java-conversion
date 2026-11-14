@@ -55,4 +55,8 @@ public class InventoryReportFormatter {
                 : "ALL PRODUCTS ARE ABOVE REORDER LEVEL.");
         return String.join("\n", lines) + "\n";
     }
+
+    private static String count(String label, int value) {
+        return text(label, 30) + integer(value % 1_000_000, 7);
+    }
 }
