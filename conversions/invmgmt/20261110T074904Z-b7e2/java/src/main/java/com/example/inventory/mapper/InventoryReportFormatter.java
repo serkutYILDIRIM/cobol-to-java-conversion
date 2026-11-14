@@ -78,4 +78,9 @@ public class InventoryReportFormatter {
         String result = format.format(value);
         return " ".repeat(Math.max(0, width - result.length())) + result;
     }
+
+    private static String text(String value, int width) {
+        return value.length() >= width ? value.substring(0, width)
+                : value + " ".repeat(width - value.length());
+    }
 }
