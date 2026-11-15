@@ -1,5 +1,16 @@
 package com.example.inventory.model;
 
 public final class EmbeddedInventory {
+    private static final List<String> PRODUCTS = List.of(
+            "P1001WIRELESS MOUSE      00120000500002490A",
+            "P1002MECHANICAL KEYBOARD 00045000300008950A",
+            "P100327 INCH MONITOR     00018000200024999A",
+            "P1004USB-C HUB           00200000750003400A",
+            "P1005LAPTOP STAND        00060000250004275A",
+            "P1006NOISE CANCEL HEADSET00012000150015900A",
+            "P1007HD WEBCAM           00035000200005990A",
+            "P1008EXTERNAL SSD 1TB    00025000100011900A",
+            "P1009DOCKING STATION     00008000100018900I",
+            "P1010HDMI CABLE 2M       00300001000000750A");
 
 }
