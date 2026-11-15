@@ -1,5 +1,6 @@
 package com.example.inventory.model;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public final class EmbeddedInventory {
@@ -31,5 +32,11 @@ public final class EmbeddedInventory {
                 Integer.parseInt(record.substring(30, 35)),
                 new BigDecimal(record.substring(35, 42)).movePointLeft(2),
                 record.substring(42, 43))).toList();
+    }
+
+    public static List<Transaction> transactions() {
+        return TRANSACTIONS.stream().map(record -> new Transaction(
+                record.substring(0, 5), record.substring(5, 6),
+                Integer.parseInt(record.substring(6, 12)))).toList();
     }
 }
