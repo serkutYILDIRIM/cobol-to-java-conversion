@@ -1,5 +1,6 @@
 package com.example.inventory.model;
 
+import java.util.List;
 
 public final class EmbeddedInventory {
     private static final List<String> PRODUCTS = List.of(
