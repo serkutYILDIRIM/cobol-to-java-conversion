@@ -23,4 +23,13 @@ public final class EmbeddedInventory {
 
     private EmbeddedInventory() {
     }
+
+    public static List<Product> products() {
+        return PRODUCTS.stream().map(record -> new Product(
+                record.substring(0, 5), record.substring(5, 25),
+                Integer.parseInt(record.substring(25, 30)),
+                Integer.parseInt(record.substring(30, 35)),
+                new BigDecimal(record.substring(35, 42)).movePointLeft(2),
+                record.substring(42, 43))).toList();
+    }
 }
