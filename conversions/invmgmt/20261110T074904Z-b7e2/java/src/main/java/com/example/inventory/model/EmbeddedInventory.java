@@ -20,4 +20,7 @@ public final class EmbeddedInventory {
             "P1004S+00150", "P1005A-00005", "P9999R+00010",
             "P1006R+00030", "P1007X+00005", "P1009S+00002",
             "P1008S+00018", "P1010S+00220", "P1007S+00020");
+
+    private EmbeddedInventory() {
+    }
 }
