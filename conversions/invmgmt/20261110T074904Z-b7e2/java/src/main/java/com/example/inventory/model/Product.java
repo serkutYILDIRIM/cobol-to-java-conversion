@@ -1,5 +1,4 @@
 package com.example.inventory.model;
 
-public record Product() {
-
+public record Product(String code) {
 }
