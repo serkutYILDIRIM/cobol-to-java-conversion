@@ -1,11 +1,13 @@
 package com.example.inventory.service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import com.example.inventory.dto.InventoryRunResponse;
+import com.example.inventory.dto.InventoryRunResponse.ProductResult;
 import com.example.inventory.mapper.InventoryReportFormatter;
 import com.example.inventory.model.EmbeddedInventory;
 import com.example.inventory.model.Product;
