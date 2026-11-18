@@ -9,6 +9,11 @@ import com.example.inventory.model.EmbeddedInventory;
 import com.example.inventory.model.Product;
 import com.example.inventory.model.Transaction;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.stereotype.Service;
+
 @Service
 public class InventoryService {
     private static final BigDecimal TAX_RATE = new BigDecimal("0.18");
@@ -89,5 +94,18 @@ public class InventoryService {
             }
         }
         return -1;
+    }
+
+    private static String rejectionReason(Product product, Transaction transaction) {
+        if ("I".equals(product.status())) {
+            return "PRODUCT IS INACTIVE";
+        }
+        if (!List.of("R", "S", "A").contains(transaction.type())) {
+            return "INVALID TRANSACTION TYPE";
+        }
+        if ("S".equals(transaction.type()) && transaction.quantity() > product.quantity()) {
+            return "INSUFFICIENT STOCK";
+        }
+        return "";
     }
 }
