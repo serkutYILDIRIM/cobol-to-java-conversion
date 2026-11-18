@@ -8,7 +8,7 @@ import com.example.inventory.mapper.InventoryReportFormatter;
 import com.example.inventory.model.EmbeddedInventory;
 import com.example.inventory.model.Product;
 import com.example.inventory.model.Transaction;
-
+import java.math.BigDecimal;
 @Service
 public class InventoryService {
     private static final BigDecimal TAX_RATE = new BigDecimal("0.18");
