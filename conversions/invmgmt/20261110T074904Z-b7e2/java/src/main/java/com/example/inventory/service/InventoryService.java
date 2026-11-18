@@ -1,17 +1,18 @@
 package com.example.inventory.service;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import com.example.inventory.dto.InventoryRunResponse;
 import com.example.inventory.dto.InventoryRunResponse.ProductResult;
+import com.example.inventory.dto.InventoryRunResponse.Summary;
+import com.example.inventory.dto.InventoryRunResponse.TransactionResult;
 import com.example.inventory.mapper.InventoryReportFormatter;
 import com.example.inventory.model.EmbeddedInventory;
 import com.example.inventory.model.Product;
 import com.example.inventory.model.Transaction;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.stereotype.Service;
 
 @Service
 public class InventoryService {
@@ -86,4 +87,25 @@ public class InventoryService {
                 formatter.format(details, outcomes, summary));
     }
 
+    private static int findProduct(List<Product> products, String code) {
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).code().equals(code)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private static String rejectionReason(Product product, Transaction transaction) {
+        if ("I".equals(product.status())) {
+            return "PRODUCT IS INACTIVE";
+        }
+        if (!List.of("R", "S", "A").contains(transaction.type())) {
+            return "INVALID TRANSACTION TYPE";
+        }
+        if ("S".equals(transaction.type()) && transaction.quantity() > product.quantity()) {
+            return "INSUFFICIENT STOCK";
+        }
+        return "";
+    }
 }
