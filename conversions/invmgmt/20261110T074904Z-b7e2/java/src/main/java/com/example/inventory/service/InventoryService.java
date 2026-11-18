@@ -2,6 +2,7 @@ package com.example.inventory.service;
 
 import com.example.inventory.dto.InventoryRunResponse;
 import com.example.inventory.dto.InventoryRunResponse.ProductResult;
+import com.example.inventory.dto.InventoryRunResponse.Summary;
 import com.example.inventory.mapper.InventoryReportFormatter;
 import com.example.inventory.model.EmbeddedInventory;
 import com.example.inventory.model.Product;
