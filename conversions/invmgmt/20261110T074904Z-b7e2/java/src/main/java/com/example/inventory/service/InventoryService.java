@@ -1,11 +1,5 @@
 package com.example.inventory.service;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import com.example.inventory.dto.InventoryRunResponse;
 import com.example.inventory.dto.InventoryRunResponse.ProductResult;
 import com.example.inventory.mapper.InventoryReportFormatter;
@@ -86,4 +80,12 @@ public class InventoryService {
                 formatter.format(details, outcomes, summary));
     }
 
+    private static int findProduct(List<Product> products, String code) {
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).code().equals(code)) {
+                return i;
+            }
+        }
+        return -1;
+    }
 }
