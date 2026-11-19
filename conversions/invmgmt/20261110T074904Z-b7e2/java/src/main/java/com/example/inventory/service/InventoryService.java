@@ -113,4 +113,7 @@ public class InventoryService {
         // Unsigned DISPLAY receivers discard the sign and excess high-order digits.
         return (int) (Math.abs(value) % modulus);
     }
+
+    private static BigDecimal amount(BigDecimal value) {
+    }
 }
