@@ -110,5 +110,6 @@ public class InventoryService {
     }
 
     private static int unsigned(long value, int modulus) {
+        return (int) (Math.abs(value) % modulus);
     }
 }
