@@ -108,4 +108,7 @@ public class InventoryService {
         }
         return "";
     }
+
+    private static int unsigned(long value, int modulus) {
+    }
 }
