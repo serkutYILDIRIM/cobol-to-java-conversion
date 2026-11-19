@@ -110,6 +110,7 @@ public class InventoryService {
     }
 
     private static int unsigned(long value, int modulus) {
+        // Unsigned DISPLAY receivers discard the sign and excess high-order digits.
         return (int) (Math.abs(value) % modulus);
     }
 }
