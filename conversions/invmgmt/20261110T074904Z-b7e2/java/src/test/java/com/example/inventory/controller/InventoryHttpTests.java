@@ -1,5 +1,7 @@
 package com.example.inventory.controller;
 
+import java.net.http.HttpClient;
+
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
