@@ -65,4 +65,22 @@ class InventoryHttpTests {
                     .isEqualTo(404);
         }
     }
+
+    @Test
+    void executionFailureReturnsProblemDetailWithoutInternalPaths() throws Exception {
+        var service = mock(InventoryService.class);
+        when(service.run()).thenThrow(new IllegalStateException("Private path C:\\private\\inventory"));
+        var mvc = MockMvcBuilders.standaloneSetup(new InventoryController(service))
+                .setControllerAdvice(new InventoryExceptionHandler()).build();
+        var response = mvc.perform(post("/api/inventory/runs"))
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().contentTypeCompatibleWith("application/problem+json"))
+                .andReturn().getResponse().getContentAsString();
+        assertThat(response).contains("Inventory execution failed.")
+                .doesNotContain("Private path", "C:\\", "stackTrace", "IllegalStateException");
+    }
+
+    private URI endpoint(String path) {
+        return URI.create("http://localhost:" + port + path);
+    }
 }
