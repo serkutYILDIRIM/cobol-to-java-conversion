@@ -1,6 +1,5 @@
 package com.example.inventory.controller;
 
-
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -37,6 +36,18 @@ class InventoryHttpTests {
                     .endsWith("ACTION: PLEASE REVIEW LOW STOCK ITEMS.\n");
             assertThat(client.send(request, HttpResponse.BodyHandlers.ofString()).body())
                     .isEqualTo(response.body());
+        }
+    }
+
+    @Test
+    void unsupportedMethodsAndRoutesAreNotSuccessfulRuns() throws Exception {
+        try (var client = HttpClient.newHttpClient()) {
+            var wrongMethod = HttpRequest.newBuilder(endpoint("/api/inventory/runs")).GET().build();
+            assertThat(client.send(wrongMethod, HttpResponse.BodyHandlers.ofString()).statusCode())
+                    .isEqualTo(405);
+            var unknown = HttpRequest.newBuilder(endpoint("/api/inventory/missing")).GET().build();
+            assertThat(client.send(unknown, HttpResponse.BodyHandlers.ofString()).statusCode())
+                    .isEqualTo(404);
         }
     }
 }
