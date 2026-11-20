@@ -115,5 +115,6 @@ public class InventoryService {
     }
 
     private static BigDecimal amount(BigDecimal value) {
+        return value.setScale(2, RoundingMode.HALF_UP).abs().remainder(AMOUNT_MODULUS);
     }
 }
