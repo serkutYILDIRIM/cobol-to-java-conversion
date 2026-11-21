@@ -2,7 +2,12 @@ package com.example.inventory.mapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.example.inventory.dto.InventoryRunResponse.Summary;
+import com.example.inventory.dto.InventoryRunResponse.TransactionResult;
 import com.example.inventory.service.InventoryService;
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Locale;
 import org.junit.jupiter.api.Test;
 
 class InventoryReportFormatterTests {
