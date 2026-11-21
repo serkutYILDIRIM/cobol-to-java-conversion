@@ -1,5 +1,10 @@
 package com.example.inventory.mapper;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import com.example.inventory.service.InventoryService;
+import org.junit.jupiter.api.Test;
+
 class InventoryReportFormatterTests {
     private final InventoryReportFormatter formatter = new InventoryReportFormatter();
 
