@@ -43,12 +43,29 @@ class InventoryReportFormatterTests {
 
     @Test
     void preservesFixedMinusPositionAndFinalZeroDigit() {
-        var report = formatter.format(List.of(), List.of(
+    var report = formatter.format(List.of(), List.of(
                 new TransactionResult("P0001", "A", -5, false, "PRODUCT IS INACTIVE"),
                 new TransactionResult("P9999", "R", 0, false, "PRODUCT NOT FOUND")), zeroSummary());
-        assertThat(report).contains("P0001 / A / -     5 - PRODUCT IS INACTIVE");
-        assertThat(report).contains("P9999 / R /       0 - PRODUCT NOT FOUND");
-        assertThat(report).contains("INVENTORY VALUE (NET)   :" + " ".repeat(5) + "          0.00");
-        assertThat(report).endsWith("ALL PRODUCTS ARE ABOVE REORDER LEVEL.\n");
+    assertThat(report).contains("P0001 / A / -     5 - PRODUCT IS INACTIVE");
+    assertThat(report).contains("P9999 / R /       0 - PRODUCT NOT FOUND");
+    assertThat(report).contains("INVENTORY VALUE (NET)   :" + " ".repeat(5) + "          0.00");
+    assertThat(report).endsWith("ALL PRODUCTS ARE ABOVE REORDER LEVEL.\n");
+    }
+
+    @Test
+    void formattingIsIndependentOfTheMachineLocale() {
+        Locale previous = Locale.getDefault();
+        try {
+            Locale.setDefault(Locale.GERMANY);
+            var report = new InventoryService(formatter).run().report();
+            assertThat(report).contains("27,676.07").doesNotContain("27.676,07");
+        } finally {
+            Locale.setDefault(previous);
+        }
+    }
+
+    private static Summary zeroSummary() {
+        return new Summary(0, 0, 0, 0, 0, new BigDecimal("0.00"),
+                new BigDecimal("0.00"), new BigDecimal("0.00"));
     }
 }
