@@ -55,8 +55,12 @@ class InventoryReportFormatterTests {
     @Test
     void formattingIsIndependentOfTheMachineLocale() {
         Locale previous = Locale.getDefault();
+        try {
             Locale.setDefault(Locale.GERMANY);
             var report = new InventoryService(formatter).run().report();
             assertThat(report).contains("27,676.07").doesNotContain("27.676,07");
+        } finally {
+            Locale.setDefault(previous);
+        }
     }
 }
