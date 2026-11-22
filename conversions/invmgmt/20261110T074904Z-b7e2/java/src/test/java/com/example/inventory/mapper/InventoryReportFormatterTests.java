@@ -43,13 +43,13 @@ class InventoryReportFormatterTests {
 
     @Test
     void preservesFixedMinusPositionAndFinalZeroDigit() {
-        var report = formatter.format(List.of(), List.of(
+    var report = formatter.format(List.of(), List.of(
                 new TransactionResult("P0001", "A", -5, false, "PRODUCT IS INACTIVE"),
                 new TransactionResult("P9999", "R", 0, false, "PRODUCT NOT FOUND")), zeroSummary());
-        assertThat(report).contains("P0001 / A / -     5 - PRODUCT IS INACTIVE");
-        assertThat(report).contains("P9999 / R /       0 - PRODUCT NOT FOUND");
-        assertThat(report).contains("INVENTORY VALUE (NET)   :" + " ".repeat(5) + "          0.00");
-        assertThat(report).endsWith("ALL PRODUCTS ARE ABOVE REORDER LEVEL.\n");
+    assertThat(report).contains("P0001 / A / -     5 - PRODUCT IS INACTIVE");
+    assertThat(report).contains("P9999 / R /       0 - PRODUCT NOT FOUND");
+    assertThat(report).contains("INVENTORY VALUE (NET)   :" + " ".repeat(5) + "          0.00");
+    assertThat(report).endsWith("ALL PRODUCTS ARE ABOVE REORDER LEVEL.\n");
     }
 
     @Test
