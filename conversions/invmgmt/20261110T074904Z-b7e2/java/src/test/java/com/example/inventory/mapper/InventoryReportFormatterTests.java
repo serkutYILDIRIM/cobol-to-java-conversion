@@ -63,4 +63,7 @@ class InventoryReportFormatterTests {
             Locale.setDefault(previous);
         }
     }
+
+    private static Summary zeroSummary() {
+    }
 }
