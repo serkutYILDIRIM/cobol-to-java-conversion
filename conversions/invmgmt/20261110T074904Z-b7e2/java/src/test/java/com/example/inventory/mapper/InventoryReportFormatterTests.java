@@ -65,5 +65,6 @@ class InventoryReportFormatterTests {
     }
 
     private static Summary zeroSummary() {
+        return new Summary();
     }
 }
