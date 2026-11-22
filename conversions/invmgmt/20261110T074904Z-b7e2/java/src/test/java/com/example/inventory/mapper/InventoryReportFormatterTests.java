@@ -51,4 +51,12 @@ class InventoryReportFormatterTests {
         assertThat(report).contains("INVENTORY VALUE (NET)   :" + " ".repeat(5) + "          0.00");
         assertThat(report).endsWith("ALL PRODUCTS ARE ABOVE REORDER LEVEL.\n");
     }
+
+    @Test
+    void formattingIsIndependentOfTheMachineLocale() {
+        Locale previous = Locale.getDefault();
+            Locale.setDefault(Locale.GERMANY);
+            var report = new InventoryService(formatter).run().report();
+            assertThat(report).contains("27,676.07").doesNotContain("27.676,07");
+    }
 }
