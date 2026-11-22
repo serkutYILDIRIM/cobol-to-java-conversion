@@ -65,6 +65,7 @@ class InventoryReportFormatterTests {
     }
 
     private static Summary zeroSummary() {
-        return new Summary();
+        return new Summary(0, 0, 0, 0, 0, new BigDecimal("0.00"),
+                new BigDecimal("0.00"), new BigDecimal("0.00"));
     }
 }
