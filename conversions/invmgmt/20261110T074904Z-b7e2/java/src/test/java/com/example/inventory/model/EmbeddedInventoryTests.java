@@ -2,6 +2,7 @@ package com.example.inventory.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.math.BigDecimal;
 import org.junit.jupiter.api.Test;
 
 class EmbeddedInventoryTests {
@@ -28,5 +29,11 @@ class EmbeddedInventoryTests {
                 "HDMI CABLE 2M       ");
         assertThat(products).extracting(Product::status)
                 .containsExactly("A", "A", "A", "A", "A", "A", "A", "A", "I", "A");
+    }
+
+    @Test
+    void parsesSignedTransactionsWithoutLosingOrderOrUnknownTypes() {
+        var transactions = EmbeddedInventory.transactions();
+
     }
 }
