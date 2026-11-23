@@ -34,6 +34,13 @@ class EmbeddedInventoryTests {
     @Test
     void parsesSignedTransactionsWithoutLosingOrderOrUnknownTypes() {
         var transactions = EmbeddedInventory.transactions();
-
+        assertThat(transactions).hasSize(12);
+        assertThat(transactions).extracting(Transaction::quantity)
+                .containsExactly(80, 40, 25, 150, -5, 10, 30, 5, 2, 18, 220, 20);
+        assertThat(transactions).extracting(Transaction::type)
+                .containsExactly("S", "R", "S", "S", "A", "R", "R", "X", "S", "S", "S", "S");
+        assertThat(transactions).extracting(Transaction::code).containsExactly(
+                "P1001", "P1002", "P1003", "P1004", "P1005", "P9999",
+                "P1006", "P1007", "P1009", "P1008", "P1010", "P1007");
     }
 }
