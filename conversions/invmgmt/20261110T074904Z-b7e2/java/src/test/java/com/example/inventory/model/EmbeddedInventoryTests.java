@@ -1,5 +1,9 @@
 package com.example.inventory.model;
 
-public class EmbeddedInventoryTests {
-    
+import org.junit.jupiter.api.Test;
+
+class EmbeddedInventoryTests {
+    @Test
+    void parsesEveryProductAtTheOriginalFixedWidthOffsets() {
+    }
 }
