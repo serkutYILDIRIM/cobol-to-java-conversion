@@ -36,4 +36,22 @@ class InventoryServiceTests {
         assertThat(summary.taxAmount()).isEqualByComparingTo("4981.69");
         assertThat(summary.grossValue()).isEqualByComparingTo("32657.76");
     }
+
+    @Test
+    void preservesRejectionPrecedenceAndNeverMutatesRejectedStock() {
+        var result = service.process(List.of(product("P0001", 5, 0, "I"),
+                        product("P0002", 5, 0, "A")),
+                List.of(new Transaction("P9999", "X", 99),
+                        new Transaction("P0001", "X", 99),
+                        new Transaction("P0002", "X", 99),
+                        new Transaction("P0002", "S", 6)));
+        assertThat(result.transactions()).extracting(TransactionResult::rejectionReason)
+                .containsExactly("PRODUCT NOT FOUND", "PRODUCT IS INACTIVE",
+                        "INVALID TRANSACTION TYPE", "INSUFFICIENT STOCK");
+        assertThat(result.products()).extracting(ProductResult::quantity).containsExactly(5, 5);
+        assertThat(result.summary().processed()).isZero();
+        assertThat(result.summary().rejected()).isEqualTo(4);
+        assertThat(result.summary().totalReceived()).isZero();
+        assertThat(result.summary().totalSold()).isZero();
+    }
 }
