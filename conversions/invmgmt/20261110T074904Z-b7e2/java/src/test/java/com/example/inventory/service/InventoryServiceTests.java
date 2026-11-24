@@ -1,10 +1,18 @@
 package com.example.inventory.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import com.example.inventory.dto.InventoryRunResponse.ProductResult;
 import com.example.inventory.dto.InventoryRunResponse.TransactionResult;
 import com.example.inventory.mapper.InventoryReportFormatter;
+import com.example.inventory.model.Product;
+import com.example.inventory.model.Transaction;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Executors;
 import org.junit.jupiter.api.Test;
 
 class InventoryServiceTests {
