@@ -62,4 +62,20 @@ class InventoryServiceTests {
         assertThat(result.summary().totalReceived()).isZero();
         assertThat(result.summary().totalSold()).isZero();
     }
+
+    @Test
+    void permitsExactStockSaleAndProcessesSubsequentMovementsInOrder() {
+        var original = product("P0001", 5, 3, "A");
+        var result = service.process(List.of(original), List.of(
+                new Transaction("P0001", "S", 5), new Transaction("P0001", "S", 1),
+                new Transaction("P0001", "R", 7), new Transaction("P0001", "A", -4)));
+        assertThat(result.products().getFirst().quantity()).isEqualTo(3);
+        assertThat(result.products().getFirst().flag()).isEqualTo("LOW");
+        assertThat(result.summary().lowStockCount()).isEqualTo(1);
+        assertThat(result.summary().processed()).isEqualTo(3);
+        assertThat(result.summary().rejected()).isEqualTo(1);
+        assertThat(result.summary().totalReceived()).isEqualTo(7);
+        assertThat(result.summary().totalSold()).isEqualTo(5);
+        assertThat(original.quantity()).isEqualTo(5);
+    }
 }
