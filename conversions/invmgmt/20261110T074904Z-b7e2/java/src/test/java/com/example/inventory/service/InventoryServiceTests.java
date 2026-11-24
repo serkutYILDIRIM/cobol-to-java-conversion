@@ -1,5 +1,12 @@
 package com.example.inventory.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import com.example.inventory.dto.InventoryRunResponse.ProductResult;
+import com.example.inventory.dto.InventoryRunResponse.TransactionResult;
+import com.example.inventory.mapper.InventoryReportFormatter;
+import java.math.BigDecimal;
+import org.junit.jupiter.api.Test;
+
 class InventoryServiceTests {
     private final InventoryService service = new InventoryService(new InventoryReportFormatter());
 
