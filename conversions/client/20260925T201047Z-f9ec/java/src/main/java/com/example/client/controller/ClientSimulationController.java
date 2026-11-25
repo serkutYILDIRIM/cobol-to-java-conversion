@@ -3,7 +3,6 @@ package com.example.client.controller;
 import com.example.client.dto.ClientSettingsRequest;
 import com.example.client.dto.SimulationResponse;
 import com.example.client.service.ClientSimulationService;
-
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
