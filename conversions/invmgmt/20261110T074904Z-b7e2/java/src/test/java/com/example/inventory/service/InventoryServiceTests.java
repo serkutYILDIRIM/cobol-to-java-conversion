@@ -148,4 +148,8 @@ class InventoryServiceTests {
         assertThat(result.products().getFirst().quantity()).isEqualTo(99000);
         assertThat(result.report()).contains("TOTAL UNITS RECEIVED    :     999,000\n");
     }
+
+    private static Product product(String code, int quantity, int reorder, String status) {
+        return new Product(code, "ITEM                ", quantity, reorder, new BigDecimal("1.00"), status);
+    }
 }
