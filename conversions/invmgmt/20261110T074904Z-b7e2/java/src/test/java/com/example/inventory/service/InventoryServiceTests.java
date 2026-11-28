@@ -92,4 +92,12 @@ class InventoryServiceTests {
         assertThat(result.summary().totalReceived()).isEqualTo(10);
         assertThat(result.summary().totalSold()).isEqualTo(5);
     }
+
+    @Test
+    void truncatesStockToTheFiveDigitReceivingField() {
+        var result = service.process(List.of(product("P0001", 99999, 0, "A")),
+                List.of(new Transaction("P0001", "R", 2)));
+        assertThat(result.products().getFirst().quantity()).isEqualTo(1);
+        assertThat(result.summary().totalReceived()).isEqualTo(2);
+    }
 }
