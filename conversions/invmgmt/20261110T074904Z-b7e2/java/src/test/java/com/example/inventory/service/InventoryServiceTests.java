@@ -100,4 +100,12 @@ class InventoryServiceTests {
         assertThat(result.products().getFirst().quantity()).isEqualTo(1);
         assertThat(result.summary().totalReceived()).isEqualTo(2);
     }
+
+    @Test
+    void searchesFromTheFirstProductAndStopsAtTheFirstMatch() {
+        var result = service.process(List.of(product("P0001", 2, 0, "A"),
+                        product("P0001", 20, 0, "A")),
+                List.of(new Transaction("P0001", "R", 1)));
+        assertThat(result.products()).extracting(ProductResult::quantity).containsExactly(3, 20);
+    }
 }
