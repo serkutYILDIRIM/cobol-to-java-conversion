@@ -78,4 +78,9 @@ class InventoryServiceTests {
         assertThat(result.summary().totalSold()).isEqualTo(5);
         assertThat(original.quantity()).isEqualTo(5);
     }
+
+    @Test
+    void doesNotInventSignValidationAndUsesUnsignedReceivingFields() {
+
+    }
 }
