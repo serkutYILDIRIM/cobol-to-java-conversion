@@ -121,4 +121,18 @@ class InventoryServiceTests {
         assertThat(result.summary().grossValue()).isEqualByComparingTo("0.30");
         assertThat(result.report()).endsWith("ALL PRODUCTS ARE ABOVE REORDER LEVEL.\n");
     }
+
+    @Test
+    void truncatesAmountOverflowToNineIntegerDigits() {
+        var products = new ArrayList<Product>();
+        for (int i = 0; i < 10; i++) {
+            products.add(new Product("P000" + i, "ITEM                ", 99999, 0,
+                    new BigDecimal("99999.99"), "A"));
+        }
+        var result = service.process(products, List.of());
+        assertThat(result.products().getFirst().stockValue()).isEqualByComparingTo("999899000.01");
+        assertThat(result.summary().netValue()).isEqualByComparingTo("998990000.10");
+        assertThat(result.summary().taxAmount()).isEqualByComparingTo("179818200.02");
+        assertThat(result.summary().grossValue()).isEqualByComparingTo("178808200.12");
+    }
 }
