@@ -78,4 +78,78 @@ class InventoryServiceTests {
         assertThat(result.summary().totalSold()).isEqualTo(5);
         assertThat(original.quantity()).isEqualTo(5);
     }
+
+    @Test
+    void doesNotInventSignValidationAndUsesUnsignedReceivingFields() {
+        var result = service.process(List.of(product("P0001", 2, 0, "A")), List.of(
+                new Transaction("P0001", "S", -5),
+                new Transaction("P0001", "R", -10),
+                new Transaction("P0001", "A", -5),
+                new Transaction("P0001", "R", 0)));
+        assertThat(result.products().getFirst().quantity()).isEqualTo(2);
+        assertThat(result.summary().processed()).isEqualTo(4);
+        assertThat(result.summary().rejected()).isZero();
+        assertThat(result.summary().totalReceived()).isEqualTo(10);
+        assertThat(result.summary().totalSold()).isEqualTo(5);
+    }
+
+    @Test
+    void truncatesStockToTheFiveDigitReceivingField() {
+        var result = service.process(List.of(product("P0001", 99999, 0, "A")),
+                List.of(new Transaction("P0001", "R", 2)));
+        assertThat(result.products().getFirst().quantity()).isEqualTo(1);
+        assertThat(result.summary().totalReceived()).isEqualTo(2);
+    }
+
+    @Test
+    void searchesFromTheFirstProductAndStopsAtTheFirstMatch() {
+        var result = service.process(List.of(product("P0001", 2, 0, "A"),
+                        product("P0001", 20, 0, "A")),
+                List.of(new Transaction("P0001", "R", 1)));
+        assertThat(result.products()).extracting(ProductResult::quantity).containsExactly(3, 20);
+    }
+
+    @Test
+    void includesInactiveValueButNotInactiveLowStockAndRoundsTaxHalfUp() {
+        var result = service.process(List.of(
+                new Product("P0001", "ITEM                ", 1, 1, new BigDecimal("0.25"), "I")),
+                List.of());
+        assertThat(result.products().getFirst().flag()).isEqualTo("INACT");
+        assertThat(result.summary().lowStockCount()).isZero();
+        assertThat(result.summary().netValue()).isEqualByComparingTo("0.25");
+        assertThat(result.summary().taxAmount()).isEqualByComparingTo("0.05");
+        assertThat(result.summary().grossValue()).isEqualByComparingTo("0.30");
+        assertThat(result.report()).endsWith("ALL PRODUCTS ARE ABOVE REORDER LEVEL.\n");
+    }
+
+    @Test
+    void truncatesAmountOverflowToNineIntegerDigits() {
+        var products = new ArrayList<Product>();
+        for (int i = 0; i < 10; i++) {
+            products.add(new Product("P000" + i, "ITEM                ", 99999, 0,
+                    new BigDecimal("99999.99"), "A"));
+        }
+        var result = service.process(products, List.of());
+        assertThat(result.products().getFirst().stockValue()).isEqualByComparingTo("999899000.01");
+        assertThat(result.summary().netValue()).isEqualByComparingTo("998990000.10");
+        assertThat(result.summary().taxAmount()).isEqualByComparingTo("179818200.02");
+        assertThat(result.summary().grossValue()).isEqualByComparingTo("178808200.12");
+    }
+
+    @Test
+    void wrapsThreeDigitCountersAndSevenDigitMovementTotals() {
+        var transactions = new ArrayList<Transaction>();
+        for (int i = 0; i < 1000; i++) {
+            transactions.add(new Transaction("P0001", "R", 99999));
+        }
+        var result = service.process(List.of(product("P0001", 0, 0, "A")), transactions);
+        assertThat(result.summary().processed()).isZero();
+        assertThat(result.summary().totalReceived()).isEqualTo(9_999_000);
+        assertThat(result.products().getFirst().quantity()).isEqualTo(99000);
+        assertThat(result.report()).contains("TOTAL UNITS RECEIVED    :     999,000\n");
+    }
+
+    private static Product product(String code, int quantity, int reorder, String status) {
+        return new Product(code, "ITEM                ", quantity, reorder, new BigDecimal("1.00"), status);
+    }
 }
