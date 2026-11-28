@@ -135,4 +135,17 @@ class InventoryServiceTests {
         assertThat(result.summary().taxAmount()).isEqualByComparingTo("179818200.02");
         assertThat(result.summary().grossValue()).isEqualByComparingTo("178808200.12");
     }
+
+    @Test
+    void wrapsThreeDigitCountersAndSevenDigitMovementTotals() {
+        var transactions = new ArrayList<Transaction>();
+        for (int i = 0; i < 1000; i++) {
+            transactions.add(new Transaction("P0001", "R", 99999));
+        }
+        var result = service.process(List.of(product("P0001", 0, 0, "A")), transactions);
+        assertThat(result.summary().processed()).isZero();
+        assertThat(result.summary().totalReceived()).isEqualTo(9_999_000);
+        assertThat(result.products().getFirst().quantity()).isEqualTo(99000);
+        assertThat(result.report()).contains("TOTAL UNITS RECEIVED    :     999,000\n");
+    }
 }
