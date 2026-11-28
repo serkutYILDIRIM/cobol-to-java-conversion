@@ -108,4 +108,17 @@ class InventoryServiceTests {
                 List.of(new Transaction("P0001", "R", 1)));
         assertThat(result.products()).extracting(ProductResult::quantity).containsExactly(3, 20);
     }
+
+    @Test
+    void includesInactiveValueButNotInactiveLowStockAndRoundsTaxHalfUp() {
+        var result = service.process(List.of(
+                new Product("P0001", "ITEM                ", 1, 1, new BigDecimal("0.25"), "I")),
+                List.of());
+        assertThat(result.products().getFirst().flag()).isEqualTo("INACT");
+        assertThat(result.summary().lowStockCount()).isZero();
+        assertThat(result.summary().netValue()).isEqualByComparingTo("0.25");
+        assertThat(result.summary().taxAmount()).isEqualByComparingTo("0.05");
+        assertThat(result.summary().grossValue()).isEqualByComparingTo("0.30");
+        assertThat(result.report()).endsWith("ALL PRODUCTS ARE ABOVE REORDER LEVEL.\n");
+    }
 }
