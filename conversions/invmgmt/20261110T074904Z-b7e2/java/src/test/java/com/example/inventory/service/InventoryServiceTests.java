@@ -81,6 +81,15 @@ class InventoryServiceTests {
 
     @Test
     void doesNotInventSignValidationAndUsesUnsignedReceivingFields() {
-
+        var result = service.process(List.of(product("P0001", 2, 0, "A")), List.of(
+                new Transaction("P0001", "S", -5),
+                new Transaction("P0001", "R", -10),
+                new Transaction("P0001", "A", -5),
+                new Transaction("P0001", "R", 0)));
+        assertThat(result.products().getFirst().quantity()).isEqualTo(2);
+        assertThat(result.summary().processed()).isEqualTo(4);
+        assertThat(result.summary().rejected()).isZero();
+        assertThat(result.summary().totalReceived()).isEqualTo(10);
+        assertThat(result.summary().totalSold()).isEqualTo(5);
     }
 }
